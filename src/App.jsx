@@ -1,9 +1,11 @@
 import './App.css';
+import Nav from './componentes/estructura/Nav';
 
 function App() {
   return (
     <div>
-      <h1>Aplicacion de Vacaciones</h1>
+      <Nav>
+      </Nav>
     </div>
   );
 }
