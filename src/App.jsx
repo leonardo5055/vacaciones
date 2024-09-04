@@ -5,8 +5,7 @@ import Login from './componentes/login/Login';
 function App() {
   return (
     <div>
-      {/* <Nav>
-      </Nav> */}
+      <Nav></Nav>
       <Login></Login>
     </div>
   );

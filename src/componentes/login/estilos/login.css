@@ -13,7 +13,15 @@ body{
     border: 3px solid #EE6352;
 }
 
-img{
+
+
+.caja-ic{
+    width: fit-content;
+    height: fit-content;
     border: 3px solid #EE6352;
+}
+
+.ic-llave{
+    transform: rotate(-30deg);
 }
 

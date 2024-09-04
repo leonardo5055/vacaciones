@@ -6,16 +6,20 @@ import Llave from "../../imagenes/llave.png"
 function Login() {
     return (
         <body>
-            <div className='d-flex align-items-center justify-content-center'>
+            <div className='d-flex h-100vh align-items-center justify-content-center'>
                 <div className='text-light'>
                     <h1>Iniciar sesion</h1>
                     <form action="">
                         <div className="mb-3">
-                            <img src={Usuario} width="32"></img>
+                            <div className='caja-ic'>
+                                <img src={Usuario} width="32"></img>
+                            </div>
                             <input type="text" className="placeholder form-control bg-transparent text-light" id="usuario" placeholder="Usuario" />
                         </div>
                         <div className="mb-3">
-                            <img src={Llave} width="32"></img>
+                        <div className='caja-ic'>
+                                <img className='ic-llave' src={Llave} width="32"></img>
+                            </div>
                             <input type="password" className="placeholder form-control bg-transparent text-light" id="contrasena" placeholder="Contraseña" />
                         </div>
                     </form>
