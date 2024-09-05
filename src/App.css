@@ -4,4 +4,14 @@
     --azul-ts: rgba(63, 167, 214, 0.3);
     --amarillo-ts: rgba(250, 192, 94, 0.3);
     --verde-ts: rgba(89, 205, 144, 0.3);
+    --rojo: #EE6352;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+p{
+    margin: 0;
+    padding: 0;
 }

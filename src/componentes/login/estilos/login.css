@@ -9,8 +9,16 @@ body{
     background-image: url("../../../imagenes/fondo4.jpg")
 }
 
-.placeholder{
-    border: 3px solid #EE6352;
+.login-input{
+    border: 3px solid var(--rojo);
+    border-radius: 0;
+}
+
+.login-input:active,
+.login-input:focus,
+.login-input:hover {
+	outline: none;
+	
 }
 
 
@@ -18,7 +26,8 @@ body{
 .caja-ic{
     width: fit-content;
     height: fit-content;
-    border: 3px solid #EE6352;
+    border: 3px solid var(--rojo);
+    border-right: 0;
 }
 
 .ic-llave{
