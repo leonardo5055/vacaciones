@@ -1,5 +1,5 @@
 button{
-    background-color: #EE6352;
+    background-color: var(--rojo);
 }
 
 body{

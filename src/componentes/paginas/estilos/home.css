@@ -5,10 +5,17 @@
     background-image: url("../../../imagenes/fondo1.jpg")
 } */
 
+.bodyHome{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-image: url("../../../imagenes/fondo1.jpg")
+}
+
 .caja {
-    border: 5px solid #59CD90;
+    border: 5px solid var(--verde);
 }
 
 .boton{
-    background-color: #59CD90;
+    background-color: var(--verde);
 }

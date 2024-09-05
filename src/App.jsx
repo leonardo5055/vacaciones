@@ -1,6 +1,7 @@
 import './App.css';
 import Nav from './componentes/estructura/Nav';
 import Login from './componentes/login/Login';
+import Historial from './componentes/paginas/Historial';
 import Home from './componentes/paginas/Home';
 
 function App() {
@@ -8,7 +9,9 @@ function App() {
     <div>
       <Nav></Nav>
       {/* <Login></Login> */}
-      <Home></Home>
+      {/* <Home></Home> */}
+      <Historial></Historial>
+
     </div>
   );
 }
