@@ -14,7 +14,7 @@ function Login() {
                             <div className='caja-ic'>
                                 <img src={Usuario} width="32"></img>
                             </div>
-                            <input type="text" className="placeholder form-control bg-transparent text-light" id="usuario" placeholder="Usuario" />
+                            <input type="text" className="placeholder form-control bg-transparent text-light" id="usuario" placeholder="Usuario" /> 
                         </div>
                         <div className="mb-3">
                         <div className='caja-ic'>
