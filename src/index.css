@@ -4,6 +4,12 @@
   --blanco: #FFFFFF;
   --negro: #000000;
   --azul: #3FA7D6;
+  --amarillo: #FAC05E;
+  --azul-ts: rgba(63, 167, 214, 0.3);
+  --amarillo-ts: rgba(250, 192, 94, 0.3);
+  --verde-ts: rgba(89, 205, 144, 0.3);
+  --rojo-ts: rgba(238, 99, 82, 0.3);
+  --negro-ts: rgba(0, 0, 0, 0.6);
 }
 
 body {
@@ -14,9 +20,52 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--negro);
+  background-image: url('/src/img/fondo1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+nav {
+  background-color: var(--azul-ts);
+}
+
+.caja-amarilla{
+  background-color: var(--amarillo-ts);
+  border: solid var(--amarillo);
+}
+
+.caja-verde{
+  background-color: var(--verde-ts);
+  border: solid var(--verde);
+}
+
+.caja-roja{
+  background-color: var(--rojo-ts);
+  border: solid var(--rojo);
+}
+
+.caja-negra{
+  background-color: var(--negro-ts);
+}
+
+
+.btn-rojo{
+  background-color: var(--rojo);
+}
+
+.btn-azul{
+  background-color: var(--azul);
+}
+
+.linea{
+  background-color: #FFFFFF;
+  height: 5px;
+  border: none;
+}
+
