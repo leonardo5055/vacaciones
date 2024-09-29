@@ -11,7 +11,7 @@ function Home() {
                     <form action="">
                         <p className='text-light'>Ingrese el comienzo de sus vacaciones</p>
                         <select className="form-select form-select-lg mb-3" aria-label="Large select example">
-                        <option selected></option>
+                            <option selected>Selecciona una opción</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -46,7 +46,7 @@ function Home() {
                         </select>
                         <p className='text-light'>Cuantos días de vacaciones se va a tomar?</p>
                         <select className="form-select form-select-lg mb-3" aria-label="Large select example">
-                        <option selected></option>
+                            <option selected>Selecciona una opción</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -71,7 +71,7 @@ function Home() {
                         </select>
                         <p className='text-light'>Ingrese el motivo</p>
                         <select className="form-select form-select-lg mb-3" aria-label="Large select example">
-                        <option selected></option>
+                            <option selected>Selecciona una opción</option>
                             <option value="1">Vacaciones</option>
                             <option value="2">Enfermedad</option>
                             <option value="2">Licencia</option>
@@ -79,7 +79,7 @@ function Home() {
                         <p className='text-light'>Detalles:</p>
                         <input type="text" className='form-control mb-3' />
                         <Link to="/historial"><button className='btn btn-primary px-4 py-2 rounded-pill'>Tomar vacaciones</button></Link>
-                        
+
                     </form>
                 </div>
                 <div className='col-lg-6 d-none d-lg-block'>

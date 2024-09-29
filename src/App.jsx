@@ -1,24 +1,44 @@
-import Nav  from './componentes/Navbar/Nav';
-import './App.css';
-import Login from './componentes/paginas/Login';
-import Historial from './componentes/paginas/HistorialUsuario';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './componentes/paginas/Home';
-import Perfil from './componentes/paginas/Perfil';
+// src/App.jsx
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import routes from './router/router'; // Asegúrate de que esta ruta sea correcta
+import { Suspense, useEffect } from 'react';
 
+// Componente principal de la aplicación
 function App() {
+  // Preloading de las rutas
+  useEffect(() => {
+    // Función para manejar el preloading
+    const preloadRoutes = (routeList) => {
+      routeList.forEach((route) => {
+        // Comprobamos si la ruta tiene una función de preload y la llamamos
+        if (route.element.type?.preload) {
+          route.element.type.preload();
+        }
+
+        // Preloading para rutas hijas si existen
+        if (route.children) {
+          preloadRoutes(route.children);
+        }
+      });
+    };
+
+    preloadRoutes(routes);
+  }, []);
+
   return (
-    <div>
-      <Router>
-      <Nav></Nav>
-      <Routes>
-      <Route path="/" element={<Login />} />
-        <Route path="/solicitudes" element={<Home />} />
-        <Route path="/historial" element={<Historial />} />
-        <Route path="/perfil" element={<Perfil/>} />
-      </Routes>
+    <Router>
+      <Suspense fallback={<div className='text-bg-light'>Cargando...</div>}>
+        <Routes>
+          {routes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element}>
+              {route.children?.map((child, childIndex) => (
+                <Route key={childIndex} path={child.path} element={child.element} />
+              ))}
+            </Route>
+          ))}
+        </Routes>
+      </Suspense>
     </Router>
-    </div>
   );
 }
 
