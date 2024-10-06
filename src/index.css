@@ -35,37 +35,36 @@ nav {
   background-color: var(--azul-ts);
 }
 
-.caja-amarilla{
+.caja-amarilla {
   background-color: var(--amarillo-ts);
   border: solid var(--amarillo);
 }
 
-.caja-verde{
+.caja-verde {
   background-color: var(--verde-ts);
   border: solid var(--verde);
 }
 
-.caja-roja{
+.caja-roja {
   background-color: var(--rojo-ts);
   border: solid var(--rojo);
 }
 
-.caja-negra{
+.caja-negra {
   background-color: var(--negro-ts);
 }
 
 
-.btn-rojo{
+.btn-rojo {
   background-color: var(--rojo);
 }
 
-.btn-azul{
+.btn-azul {
   background-color: var(--azul);
 }
 
-.linea{
+.linea {
   background-color: #FFFFFF;
   height: 5px;
   border: none;
 }
-

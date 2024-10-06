@@ -1,9 +1,0 @@
-@import '../../colores/colores.css';
-
-.active {
-    color: var(--amarillo) !important;
-}
-
-nav {
-    background-color: var(--azul-ts);
-}

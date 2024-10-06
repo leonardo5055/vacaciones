@@ -19,7 +19,26 @@ function Perfil() {
                         <p>11-5838-8355</p>
                     </div>
                     <hr className='linea' />
-                    <button className='btn-azul px-4 py-2 rounded-pill text-light border-0 w-100'>Editar perfil</button>
+
+                    <form className='m-5 fw-bold'>
+                        <div className="collapse mt-3" id="contenidoAdicional">
+                            <div className="mb-5">
+                                <label htmlFor="usuario" className="form-label">Email</label>
+                                <input type="email" className="form-control" id="correo" placeholder="" />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="usuario" className="form-label">Telefono</label>
+                                <input type="number" className="form-control" id="telefono" placeholder="" />
+                            </div>
+                        </div>
+                    </form>
+
+                    <button className='btn-azul px-4 py-2 rounded-pill text-light border-0 w-100'
+                        data-bs-toggle="collapse"
+                        data-bs-target="#contenidoAdicional"
+                        aria-expanded="false"
+                        aria-controls="contenidoAdicional"
+                    >Editar perfil</button>
                 </div>
                 <div className='caja-negra w-50 text-light fs-4 g-3'>
                     <div>

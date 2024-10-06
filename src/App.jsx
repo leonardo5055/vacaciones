@@ -2,6 +2,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import routes from './router/router'; // Asegúrate de que esta ruta sea correcta
 import { Suspense, useEffect } from 'react';
+import SolicitudesAdmin from './componentes/paginas/SolicitudesAdmin';
 
 // Componente principal de la aplicación
 function App() {

@@ -10,6 +10,8 @@ const Login = lazy(() => import('../componentes/paginas/Login'));
 const Home = lazy(() => import('../componentes/paginas/Home'));
 const Historial = lazy(() => import('../componentes/paginas/HistorialUsuario'));
 const Perfil = lazy(() => import('../componentes/paginas/Perfil'));
+const Calendario = lazy(() => import('../componentes/paginas/Calendario'));
+const SolicitudesAdmin = lazy(() => import('../componentes/paginas/SolicitudesAdmin'));
 
 const isAuthenticated = true;
 
@@ -37,8 +39,16 @@ const routes = [
                 element: <PrivateRoute isAuthenticated={isAuthenticated} element={<Historial />} />
             },
             {
+                path: 'calendario',
+                element: <PrivateRoute isAuthenticated={isAuthenticated} element={<Calendario />} />
+            },
+            {
                 path: 'perfil',
                 element: <PrivateRoute isAuthenticated={isAuthenticated} element={<Perfil />} />
+            },
+            {
+                path: 'solicitudes-admin',
+                element: <PrivateRoute isAuthenticated={isAuthenticated} element={<SolicitudesAdmin />} />
             },
         ],
     },
