@@ -13,7 +13,10 @@ const Perfil = lazy(() => import('../componentes/paginas/Perfil'));
 const Calendario = lazy(() => import('../componentes/paginas/Calendario'));
 const SolicitudesAdmin = lazy(() => import('../componentes/paginas/SolicitudesAdmin'));
 
-const isAuthenticated = true;
+const isAuthenticated = () => {
+    const token = localStorage.getItem('Token');
+    return token !== null;
+};
 
 const routes = [
     {
