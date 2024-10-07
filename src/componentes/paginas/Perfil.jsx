@@ -1,25 +1,14 @@
 import React from 'react'
-import Usuario from '../../img/usuario.png'
 
 function Perfil() {
+    let empleado = JSON.parse(localStorage.getItem('EmpleadoInfo'));
+    console.log(empleado)
     return (
         <div>
             <h1 className='text-light text-center mt-3'>Perfil</h1>
-            <div className='d-flex justify-content-center  gap-5 m-5'>
+            <div className='d-flex justify-content-center gap-5 m-5'>
                 <div className='caja-negra text-light text-center fs-4'>
-                    <img src={Usuario} width={300} alt="" />
-                    <hr className='linea' />
-                    <p>Leonardo Durand Caballero</p>
-                    <hr className='linea' />
-                    <p className='d-flex justify-content-start'>Email:</p>
-                    <p>leonardodurand@gmail.com</p>
-                    <hr className='linea' />
-                    <div>
-                        <p className='d-flex justify-content-start'>Telefono:</p>
-                        <p>11-5838-8355</p>
-                    </div>
-                    <hr className='linea' />
-
+                    <img src={empleado.avatar} className="rounded-circle" width={300} alt="" />
                     <form className='m-5 fw-bold'>
                         <div className="collapse mt-3" id="contenidoAdicional">
                             <div className="mb-5">
@@ -42,14 +31,22 @@ function Perfil() {
                 </div>
                 <div className='caja-negra w-50 text-light fs-4 g-3'>
                     <div>
-                        <p className='m-3'>Cargo: Jefe de desarrolladores</p>
-                        <hr className='linea' />
+                        <p className='m-3'>Nombre: {empleado.nombres} {empleado.apellidos}</p>
+                        <hr />
+                        <p className='m-3'>Email: {empleado.email}</p>
+                        <hr />
+                        <p className='m-3'>Telefono: {empleado.celular.replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3')}</p>
+                        <hr />
+                        <p className='m-3'>Cargo: {empleado.cargo}</p>
+                        <hr />
                         <p className='m-3'>Area: Programacion</p>
-                        <hr className='linea' />
-                        <p className='m-3'>Años en la empresa: Seis años</p>
-                        <hr className='linea' />
-                        <p className='m-3'>Experiencia: Diez años</p>
-                        <hr className='linea' />
+                        <hr />
+                        <p className='m-3'>
+                            Años en la empresa: {new Date(empleado.fecha_contratacion).getDate().toString().padStart(2, '0')}-{
+                                (new Date(empleado.fecha_contratacion).getMonth() + 1).toString().padStart(2, '0')
+                            }-{new Date(empleado.fecha_contratacion).getFullYear()}
+                        </p>
+                        <hr />
                     </div>
                 </div>
             </div>

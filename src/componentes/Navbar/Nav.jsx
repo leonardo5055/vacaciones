@@ -60,12 +60,13 @@ function Nav() {
                                     {empleadoInfo.nombres} {empleadoInfo.apellidos}
                                 </span>
                                 <img
-                                    src={empleadoInfo.avatar} // URL del avatar del empleado
+                                    src={empleadoInfo.avatar}
                                     alt='Icono de usuario'
-                                    className="rounded-circle" // Añadir clase para bordes redondeados
+                                    className="rounded-circle"
+                                    width={50}
                                 />
                             </button>
-                            <ul class="dropdown-menu">
+                            <ul className="dropdown-menu">
                                 <li><Link to="/perfil" aria-label="Perfil" class="dropdown-item">Perfil</Link></li>
                                 <li><hr class="dropdown-divider"></hr></li>
                                 <li><button className="dropdown-item" onClick={handleLogout}>Cerrar Sesión</button></li>

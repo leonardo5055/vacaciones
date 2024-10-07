@@ -12,6 +12,7 @@ const Historial = lazy(() => import('../componentes/paginas/HistorialUsuario'));
 const Perfil = lazy(() => import('../componentes/paginas/Perfil'));
 const Calendario = lazy(() => import('../componentes/paginas/Calendario'));
 const SolicitudesAdmin = lazy(() => import('../componentes/paginas/SolicitudesAdmin'));
+const HistorialAdmin = lazy(() => import('../componentes/paginas/HistorialAdmin'));
 
 const isAuthenticated = () => {
     const token = localStorage.getItem('Token');
@@ -52,6 +53,10 @@ const routes = [
             {
                 path: 'solicitudes-admin',
                 element: <PrivateRoute isAuthenticated={isAuthenticated} element={<SolicitudesAdmin />} />
+            },
+            {
+                path: 'historial-admin',
+                element: <PrivateRoute isAuthenticated={isAuthenticated} element={<HistorialAdmin />} />
             },
         ],
     },
