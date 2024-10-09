@@ -10,41 +10,8 @@ function Home() {
                 <div className='col-lg-6 col-md-8 col-sm-12'>
                     <form action="">
                         <p className='text-light'>Ingrese el comienzo de sus vacaciones</p>
-                        <select className="form-select form-select-lg mb-3" aria-label="Large select example">
-                            <option selected>Selecciona una opción</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="1">4</option>
-                            <option value="2">5</option>
-                            <option value="3">6</option>
-                            <option value="1">7</option>
-                            <option value="2">8</option>
-                            <option value="3">9</option>
-                            <option value="1">10</option>
-                            <option value="2">11</option>
-                            <option value="3">12</option>
-                            <option value="1">13</option>
-                            <option value="2">14</option>
-                            <option value="3">15</option>
-                            <option value="1">16</option>
-                            <option value="2">17</option>
-                            <option value="3">18</option>
-                            <option value="3">19</option>
-                            <option value="1">20</option>
-                            <option value="2">21</option>
-                            <option value="3">22</option>
-                            <option value="1">23</option>
-                            <option value="2">24</option>
-                            <option value="3">25</option>
-                            <option value="1">26</option>
-                            <option value="2">27</option>
-                            <option value="3">28</option>
-                            <option value="2">29</option>
-                            <option value="3">30</option>
-                            <option value="3">31</option>
-                        </select>
-                        <p className='text-light'>Cuantos días de vacaciones se va a tomar?</p>
+                        <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control"/>
+                        <p className='text-light mt-3'>¿Cuantos días de vacaciones se va a tomar?</p>
                         <select className="form-select form-select-lg mb-3" aria-label="Large select example">
                             <option selected>Selecciona una opción</option>
                             <option value="1">1</option>

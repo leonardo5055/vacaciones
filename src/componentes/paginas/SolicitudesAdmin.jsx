@@ -109,32 +109,32 @@ function SolicitudesAdmin() {
                 <hr />
                 <p className='text-light m-3'>¿Quién mas va estar ausente?</p>
                 <div>
-                    <div className='d-flex justify-content-around align-items-center borde-blanco m-3'>
+                    <div className='d-flex justify-content-around align-items-center borde-blanco m-3 gap-3'>
                         <p>🔵</p>
                         <img src={empleado.avatar} className='rounded-circle' width={60} alt="" />
                         <p>Nombre: {empleado.nombres} {empleado.apellidos}</p>
-                        <p>10/10/2024 - 10/11/2024</p>
+                        <p>10/10/2024  10/11/2024</p>
                         <p>Vacaciones</p>
                     </div>
-                    <div className='d-flex justify-content-around align-items-center borde-blanco m-3'>
+                    <div className='d-flex justify-content-around align-items-center borde-blanco m-3 gap-3'>
                         <p>🔵</p>
                         <img src={empleado.avatar} className='rounded-circle' width={60} alt="" />
                         <p>Nombre: {empleado.nombres} {empleado.apellidos}</p>
-                        <p>10/10/2024 - 10/11/2024</p>
+                        <p>10/10/2024  10/11/2024</p>
                         <p>Vacaciones</p>
                     </div>
-                    <div className='d-flex justify-content-around align-items-center borde-blanco m-3'>
+                    <div className='d-flex justify-content-around align-items-center borde-blanco m-3 gap-3'>
                         <p>🔵</p>
                         <img src={empleado.avatar} className='rounded-circle' width={60} alt="" />
                         <p>Nombre: {empleado.nombres} {empleado.apellidos}</p>
-                        <p>10/10/2024 - 10/11/2024</p>
+                        <p>10/10/2024  10/11/2024</p>
                         <p>Vacaciones</p>
                     </div>
-                    <div className='d-flex justify-content-around align-items-center borde-blanco m-3'>
+                    <div className='d-flex justify-content-around align-items-center borde-blanco m-3 gap-3'>
                         <p>🔵</p>
                         <img src={empleado.avatar} className='rounded-circle' width={60} alt="" />
                         <p>Nombre: {empleado.nombres} {empleado.apellidos}</p>
-                        <p>10/10/2024 - 10/11/2024</p>
+                        <p>10/10/2024  10/11/2024</p>
                         <p>Vacaciones</p>
                     </div>
                 </div>

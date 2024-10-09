@@ -1,3 +1,4 @@
 .active {
     color: var(--amarillo) !important;
+    text-decoration: underline !important;
 }

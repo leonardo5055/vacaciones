@@ -23,9 +23,32 @@ function HistorialAdmin() {
                         </div>
                     </div>
                     <hr />
+                    <div className='d-flex align-items-center m-3 gap-3'>
+                        <img src={empleado.avatar} className='rounded-circle' width={60} alt="" />
+                        <div>
+                            <p>Nombre: {empleado.nombres} {empleado.apellidos}</p>
+                            <p>10/10/2024 - 10/11/2024</p>
+                            <p>🔵 Vacaciones</p>
+                        </div>
+                    </div>
+                    <hr />
+                    <div className='d-flex align-items-center m-3 gap-3'>
+                        <img src={empleado.avatar} className='rounded-circle' width={60} alt="" />
+                        <div>
+                            <p>Nombre: {empleado.nombres} {empleado.apellidos}</p>
+                            <p>10/10/2024 - 10/11/2024</p>
+                            <p>🔵 Vacaciones</p>
+                        </div>
+                    </div>
+                    <hr />
                 </div>
                 <div className='caja-negra text-light fs-4'>
-                    <h1>En proceso</h1>
+                    <h1>Filtros</h1>
+                    <hr />
+                    <div>
+                        <p>fecha</p>
+                        <input type="date" />
+                    </div>
                 </div>
             </div>
         </div>

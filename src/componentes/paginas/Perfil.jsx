@@ -3,6 +3,17 @@ import React from 'react'
 function Perfil() {
     let empleado = JSON.parse(localStorage.getItem('EmpleadoInfo'));
     console.log(empleado)
+
+    const date = new Date(empleado.fecha_contratacion);
+
+    // Obtener el día, mes y año
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Los meses son 0-indexados
+    const year = date.getUTCFullYear();
+
+    // Formatear como día/mes/año
+    empleado.fecha_contratacion = `${day}/${month}/${year}`;
+
     return (
         <div>
             <h1 className='text-light text-center mt-3'>Perfil</h1>
@@ -35,18 +46,17 @@ function Perfil() {
                         <hr />
                         <p className='m-3'>Email: {empleado.email}</p>
                         <hr />
-                        <p className='m-3'>Telefono: {empleado.celular.replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3')}</p>
+                        <p className='m-3'>Telefono: {empleado.celular.replace(/(\d{2})(\d{4})(\d{4})/, '$1 $2-$3')}</p>
                         <hr />
                         <p className='m-3'>Cargo: {empleado.cargo}</p>
                         <hr />
                         <p className='m-3'>Area: Programacion</p>
                         <hr />
                         <p className='m-3'>
-                            Años en la empresa: {new Date(empleado.fecha_contratacion).getDate().toString().padStart(2, '0')}-{
-                                (new Date(empleado.fecha_contratacion).getMonth() + 1).toString().padStart(2, '0')
-                            }-{new Date(empleado.fecha_contratacion).getFullYear()}
+                            Años en la empresa: {empleado.fecha_contratacion}
                         </p>
                         <hr />
+                        <p className='m-3'>Fecha de nacimiento: </p>
                     </div>
                 </div>
             </div>
