@@ -48,29 +48,15 @@ function Login() {
         <div className='d-flex flex-column justify-content-center align-items-center vh-100'>
             <img width="150px" src={Logo} alt="Logo - Empresa" />
             <form className='w-25' onSubmit={handleSubmit}>
-                {error && <div className="alert alert-danger">{error}</div>} {/* Mostrar error si existe */}
-                <div className="form-floating mb-3">
-                    <label htmlFor="floatingInput" className='text-light'>Email</label>
-                    <input
-                        type="email"
-                        className="form-control text-light bg-transparent"
-                        id="floatingInput"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}  // Actualizar el estado del email
-                        required
-                    />
+                {error && <div className="alert alert-danger">{error}</div>}
+                <div class="form-floating mb-3 text-light">
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} class="form-control bg-transparent" id="floatingInput" required placeholder="Email" />
+                    <label for="floatingInput">Email</label>
                 </div>
-                <div className="form-floating mb-3">
-                    <label htmlFor="floatingPassword" className='text-light'>Contraseña</label>
-                    <input
-                        type="password"
-                        className="form-control text-light bg-transparent"
-                        id="floatingPassword"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)} // Actualizar el estado del password
-                        required
-                    />
-                </div>
+                <div class="form-floating mb-3 text-light">
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} class="form-control bg-transparent" id="floatingInput" required placeholder="Contraseña" />
+                    <label for="floatingPassword">Contraseña</label>
+                </div>                
                 <button type="submit" className="btn btn-primary w-100">Continuar</button>
             </form>
         </div>
