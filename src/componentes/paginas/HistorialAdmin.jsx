@@ -37,15 +37,14 @@ function HistorialAdmin() {
                     {loading ? (
                         <p>Cargando...</p>
                     ) : (
-                        empleados.map((emp) => (
-                            <div key={emp.id} className='d-flex align-items-center m-3 gap-3'>
-                                <img src={emp.avatar} className='rounded-circle' width={60} alt={emp.nombres} />
+                        empleados.map((empleado) => (
+                            <div key={empleado.id} className='d-flex align-items-center m-3 gap-3 border-bottom'>
+                                <img src={empleado.avatar} className='rounded-circle' width={60} alt={empleado.nombres} />
+                                <p>Nombre: {empleado.nombres} {empleado.apellidos} </p>
+                                <p>10/10/2024 - 10/11/2024</p>
                                 <div>
-                                    <p>Nombre: {emp.nombres} {emp.apellidos}</p>
-                                    <p>10/10/2024 - 10/11/2024</p>
                                     <p>🔵 Vacaciones</p>
                                 </div>
-                                <hr />
                             </div>
                         ))
                     )}
@@ -53,35 +52,36 @@ function HistorialAdmin() {
                 <div className='caja-negra text-light fs-4 '>
                     <h1>Filtros</h1>
                     <hr />
-                    <div>
+                    <div className='d-flex gap-3 m-2'>
                         <p>Fecha</p>
                         <input type="date" />
                     </div>
                     <hr />
-                    <div>
+                    <div className='m-3'>
                         <select className="form-select form-select-lg mb-3" aria-label="Large select example">
                             <option selected>Empleado</option>
-                            
-                        </select>
-
-                        {empleados.map(emp => (
-                                <option key={emp.id} value={emp.id}>{emp.nombres} {emp.apellidos}</option>
+                            {empleados.map(empleado => (
+                                <option key={empleado.id} value={empleado.id}>{empleado.nombres} {empleado.apellidos}</option>
                             ))}
+                        </select>
                     </div>
                     <hr />
-                    <div>
+                    <div className='m-3'>
                         <select className="form-select form-select-lg mb-3" aria-label="Large select example">
                             <option selected>Area</option>
                         </select>
                     </div>
                     <hr />
-                    <div>
+                    <div className='m-3'>
                         <select className="form-select form-select-lg mb-3" aria-label="Large select example">
                             <option selected>Cargo</option>
+                            {empleados.map(empleado => (
+                                <option key={empleado.id} value={empleado.id}>{empleado.cargo}</option>
+                            ))}
                         </select>
                     </div>
                     <hr />
-                    <div>
+                    <div className='m-3'>
                         <select className="form-select form-select-lg mb-3" aria-label="Large select example">
                             <option selected>Motivo</option>
                         </select>

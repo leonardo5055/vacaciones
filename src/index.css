@@ -95,4 +95,21 @@ nav {
 
 hr{
   opacity: 1;
+  background-color: var(--blanco);
+}
+
+.rbc-calendar {
+  background-color: none !important; /* Fondo semitransparente */
+}
+
+.rbc-month-view {
+  background-color: none !important; /* Fondo semitransparente para la vista mensual */
+}
+
+.rbc-day-bg, .rbc-date-cell {
+  background-color: transparent !important; /* Hace las celdas de los días transparentes */
+}
+
+.rbc-today {
+  background-color: var(--azul-ts) !important; /* Día actual con fondo ligeramente más visible */
 }
