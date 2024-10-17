@@ -10,7 +10,7 @@ function Home() {
                 <div className='col-lg-6 col-md-8 col-sm-12'>
                     <form action="">
                         <p className='text-light'>Ingrese el comienzo de sus vacaciones</p>
-                        <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control"/>
+                        <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" />
                         <p className='text-light mt-3'>¿Cuantos días de vacaciones se va a tomar?</p>
                         <select className="form-select form-select-lg mb-3" aria-label="Large select example">
                             <option selected>Selecciona una opción</option>
@@ -43,8 +43,10 @@ function Home() {
                             <option value="2">Enfermedad</option>
                             <option value="2">Licencia</option>
                         </select>
-                        <p className='text-light'>Detalles:</p>
-                        <input type="text" className='form-control mb-3' />
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" className="form-label text-light">Detalle:</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
                         <Link to="/historial"><button className='btn btn-primary px-4 py-2 rounded-pill'>Tomar vacaciones</button></Link>
 
                     </form>
