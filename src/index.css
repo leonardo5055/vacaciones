@@ -10,6 +10,7 @@
   --verde-ts: rgba(89, 205, 144, 0.3);
   --rojo-ts: rgba(238, 99, 82, 0.3);
   --negro-ts: rgba(0, 0, 0, 0.6);
+  --blanco-ts: rgba(255, 255, 255, 0.3)
 }
 
 body {
@@ -60,6 +61,7 @@ nav {
   background-color: var(--rojo);
   width: 200px;
 }
+
 .caja-amarillaa {
   background-color: var(--amarillo);
 
@@ -69,19 +71,19 @@ nav {
   background-color: var(--azul);
 }
 
-.borde-amarillo{
+.borde-amarillo {
   border: solid var(--amarillo);
 }
 
-.borde-verde{
+.borde-verde {
   border: solid var(--verde);
 }
 
-.borde-rojo{
+.borde-rojo {
   border: solid var(--rojo);
 }
 
-.borde-blanco{
+.borde-blanco {
   border: solid var(--blanco);
 }
 
@@ -93,6 +95,56 @@ nav {
   background-color: var(--azul);
 }
 
-hr{
+hr {
   opacity: 1;
+  background-color: var(--blanco);
+}
+
+.rbc-calendar {
+  background-color: none !important;
+  /* Fondo semitransparente */
+}
+
+.rbc-month-view {
+  background-color: none !important;
+  /* Fondo semitransparente para la vista mensual */
+}
+
+.rbc-date-cell {
+  font-weight: 700 !important;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+  padding: 10px;
+}
+
+
+/* Celdas fuera del mes actual */
+.rbc-off-range-bg {
+  background-color: var(--blanco-ts) !important;
+  /* Blanco con 50% de transparencia */
+}
+
+.rbc-today {
+  background-color: var(--azul-ts) !important;
+  /* Día actual con fondo ligeramente más visible */
+}
+
+.rbc-toolbar button {
+  color: white !important;
+  /* Cambia el color de la fuente a blanco */
+}
+
+.rbc-toolbar button:hover {
+  background-color: var(--azul-ts) !important;
+  /* Opcional: color para botones deshabilitados */
+}
+
+.rbc-toolbar button:active {
+  background-color: var(--azul-ts) !important;
+  /* Opcional: color para botones deshabilitados */
+}
+
+.rbc-toolbar button:focus {
+  background-color: var(--azul-ts) !important;
+  /* Opcional: color para botones deshabilitados */
 }
