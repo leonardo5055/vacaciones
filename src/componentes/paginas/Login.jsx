@@ -50,11 +50,11 @@ function Login() {
             <form className='w-25' onSubmit={handleSubmit}>
                 {error && <div className="alert alert-danger">{error}</div>}
                 <div class="form-floating mb-3 text-light">
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} class="form-control bg-transparent" id="floatingInput" required placeholder="Email" />
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} class="form-control text-light bg-transparent" id="floatingInput" required placeholder="Email" />
                     <label for="floatingInput">Email</label>
                 </div>
                 <div class="form-floating mb-3 text-light">
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} class="form-control bg-transparent" id="floatingInput" required placeholder="Contraseña" />
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} class="form-control text-light bg-transparent" id="floatingInput" required placeholder="Contraseña" />
                     <label for="floatingPassword">Contraseña</label>
                 </div>                
                 <button type="submit" className="btn btn-primary w-100">Continuar</button>

@@ -38,13 +38,16 @@ function HistorialAdmin() {
                         <p>Cargando...</p>
                     ) : (
                         empleados.map((empleado) => (
-                            <div key={empleado.id} className='d-flex align-items-center m-3 gap-3 border-bottom'>
-                                <img src={empleado.avatar} className='rounded-circle' width={60} alt={empleado.nombres} />
-                                <p>Nombre: {empleado.nombres} {empleado.apellidos} </p>
-                                <p>10/10/2024 - 10/11/2024</p>
-                                <div>
-                                    <p>🔵 Vacaciones</p>
+                            <div>
+                                <div key={empleado.id} className='d-flex align-items-center m-3 gap-3'>
+                                    <img src={empleado.avatar} className='rounded-circle' width={60} alt={empleado.nombres} />
+                                    <p>Nombre: {empleado.nombres} {empleado.apellidos} </p>
+                                    <p>10/10/2024 - 10/11/2024</p>
+                                    <div>
+                                        <p>🔵 Vacaciones</p>
+                                    </div>
                                 </div>
+                                <hr />
                             </div>
                         ))
                     )}

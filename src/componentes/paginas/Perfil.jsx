@@ -50,7 +50,7 @@ function Perfil() {
                         <hr />
                         <p className='m-3'>Cargo: {empleado.cargo}</p>
                         <hr />
-                        <p className='m-3'>Area: Programacion</p>
+                        <p className='m-3'>Area: </p>
                         <hr />
                         <p className='m-3'>
                             Años en la empresa: {empleado.fecha_contratacion}

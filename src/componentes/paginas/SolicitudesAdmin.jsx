@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Si from '../../img/si.png';
 import No from '../../img/no.png';
 
+
 function SolicitudesAdmin() {
     const [empleados, setEmpleados] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isCollapseVisible, setIsCollapseVisible] = useState(false);
 
     // Fetch empleados data from API
     useEffect(() => {
@@ -15,16 +17,24 @@ function SolicitudesAdmin() {
                     throw new Error('Error en la red');
                 }
                 const data = await response.json();
-                setEmpleados(data); // Guardar empleados en el estado
+                setEmpleados(data);
             } catch (error) {
                 console.error('Error al obtener los empleados:', error);
             } finally {
-                setLoading(false); // Cambia el estado de carga
+                setLoading(false);
             }
         };
 
         fetchEmpleados();
-    }, []); // Array vacío para que se ejecute solo una vez al montar el componente
+    }, []);
+
+    const handleRejectClick = () => {
+        setIsCollapseVisible(true); // Muestra el contenido adicional
+    };
+
+    const handleConfirmClick = () => {
+        setIsCollapseVisible(false); // Cierra el contenido adicional
+    };
 
     return (
         <div className='d-flex justify-content-center gap-5 mt-5'>
@@ -44,26 +54,33 @@ function SolicitudesAdmin() {
                             </div>
                             <div className='gap-3'>
                                 <button className='btn'><img src={Si} width={30} alt="Aceptar" /></button>
-                                <button className='btn'><img src={No} width={30} alt="Rechazar"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#contenidoAdicional"
-
-                                    aria-controls="contenidoAdicional"
-                                /></button>
+                                <button className='btn' onClick={handleRejectClick}><img src={No} width={30} alt="Rechazar" /></button>
                             </div>
                         </div>
                     ))
                 )}
             </div>
-            <div className="collapse caja-negra h-50" id="contenidoAdicional">
-                <div className="mb-5 text-light text-center">
-                    <div class="mb-3 m-3">
-                        <label for="exampleFormControlTextarea1" className="form-label fs-2">Motivo de rechazo</label>
-                        <hr />
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+            {isCollapseVisible && (
+                <div className="blur-background">
+                    <div className="caja-negra borde-rojo px-5 d-flex flex-column text-light text-center p-3">
+                        <div className="mb-3">
+                            <label htmlFor="exampleFormControlTextarea1" className="form-label fs-2 mt-3">Motivo de rechazo</label>
+                            <hr />
+                            <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <button className='mt-5 caja-rojaa text-light btn' onClick={handleConfirmClick}>
+                                Confirmar
+                            </button>
+                            <br />
+                            <button className='mt-3 caja-azul text-light btn' onClick={handleConfirmClick}>
+                                Cancelar
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
+
+
             <div className='caja-negra w-50 text-light fs-4'>
                 <div className='d-flex align-items-center m-3'>
                     <img src={empleados[0]?.avatar} className='rounded-circle' width={60} alt={empleados[0]?.nombres} />
@@ -88,7 +105,7 @@ function SolicitudesAdmin() {
                         </div>
                     </div>
                     <div>
-                        <p>Dias tomados:</p>
+                        <p>Días tomados:</p>
                         <p>28</p>
                     </div>
                 </div>
@@ -98,14 +115,14 @@ function SolicitudesAdmin() {
                     <p> 🔵 Vacaciones</p>
                 </div>
                 <hr />
-                <p className='text-light m-3'>¿Quién más va estar ausente?</p>
+                <p className='text-light m-3'>¿Quién más va a estar ausente?</p>
                 <div>
                     {empleados.map((empleado) => (
                         <div key={empleado.id} className='d-flex justify-content-around align-items-center borde-blanco m-3 gap-3'>
                             <p>🔵</p>
                             <img src={empleado.avatar} className='rounded-circle' width={60} alt={empleado.nombres} />
                             <p>Nombre: {empleado.nombres} {empleado.apellidos}</p>
-                            <p>10/10/2024  10/11/2024</p>
+                            <p>10/10/2024 - 10/11/2024</p>
                             <p>Vacaciones</p>
                         </div>
                     ))}
