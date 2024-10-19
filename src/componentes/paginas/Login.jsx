@@ -56,7 +56,7 @@ function Login() {
                 <div class="form-floating mb-3 text-light">
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} class="form-control text-light bg-transparent" id="floatingInput" required placeholder="Contraseña" />
                     <label for="floatingPassword">Contraseña</label>
-                </div>                
+                </div>
                 <button type="submit" className="btn btn-primary w-100">Continuar</button>
             </form>
         </div>

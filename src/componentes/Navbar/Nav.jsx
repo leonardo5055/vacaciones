@@ -9,6 +9,7 @@ function Nav() {
 
     // Obtener la información del empleado desde localStorage
     const empleadoInfo = JSON.parse(localStorage.getItem('EmpleadoInfo'));
+    console.log(empleadoInfo)
 
     const handleLogout = () => {
         // Elimina el token de localStorage

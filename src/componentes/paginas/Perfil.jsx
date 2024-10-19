@@ -4,16 +4,6 @@ function Perfil() {
     let empleado = JSON.parse(localStorage.getItem('EmpleadoInfo'));
     console.log(empleado)
 
-    const date = new Date(empleado.fecha_contratacion);
-
-    // Obtener el día, mes y año
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Los meses son 0-indexados
-    const year = date.getUTCFullYear();
-
-    // Formatear como día/mes/año
-    empleado.fecha_contratacion = `${day}/${month}/${year}`;
-
     return (
         <div>
             <h1 className='text-light text-center mt-3'>Perfil</h1>
@@ -56,7 +46,7 @@ function Perfil() {
                             Años en la empresa: {empleado.fecha_contratacion}
                         </p>
                         <hr />
-                        <p className='m-3'>Fecha de nacimiento: </p>
+                        <p className='m-3'>Fecha de nacimiento: {empleado.fecha_nacimiento}</p>
                     </div>
                 </div>
             </div>
