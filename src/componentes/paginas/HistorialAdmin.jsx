@@ -44,7 +44,7 @@ function HistorialAdmin() {
                                     <p>Nombre: {empleado.nombres} {empleado.apellidos} </p>
                                     <p>10/10/2024 - 10/11/2024</p>
                                     <div>
-                                        <p>🔵 Vacaciones</p>
+                                        <li className='li-azul'>Vacaciones</li>
                                     </div>
                                 </div>
                                 <hr />
