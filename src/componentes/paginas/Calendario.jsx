@@ -75,7 +75,7 @@ function Calendario() {
 
                 setMyEvents(eventosVacaciones); // Actualizar los eventos
             } catch (error) {
-                console.error('Error al obtener las vacaciones:', error);
+                alert('Error al obtener las vacaciones:', error);
             }
         };
 
