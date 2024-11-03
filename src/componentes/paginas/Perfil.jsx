@@ -12,7 +12,7 @@ function Perfil() {
                     <img src={empleado.avatar} className="rounded-circle" width={300} alt="" />
                     <form className='m-5 fw-bold'>
                         <div className="collapse mt-3" id="contenidoAdicional">
-                            <div className="mb-5">
+                            <div className="mb-3">
                                 <label htmlFor="usuario" className="form-label">Email</label>
                                 <input type="email" className="form-control" id="correo" placeholder="" />
                             </div>
@@ -20,9 +20,16 @@ function Perfil() {
                                 <label htmlFor="usuario" className="form-label">Telefono</label>
                                 <input type="number" className="form-control" id="telefono" placeholder="" />
                             </div>
+                            <div class="mb-3">
+                                <label for="formFileMultiple" class="form-label">Imagen</label>
+                                <input class="form-control" type="file" id="imagen" accept=".jpg, .png" multiple/>
+                            </div>
+                            <div className='d-flex m-3 gap-3 justify-content-center'>
+                                <button className='btn btn-azul'>Confirmar</button>
+                                <button className='btn btn-rojo'>Cancelar</button>
+                            </div>
                         </div>
                     </form>
-
                     <button className='btn-azul px-4 py-2 rounded-pill text-light border-0 w-100'
                         data-bs-toggle="collapse"
                         data-bs-target="#contenidoAdicional"
