@@ -51,16 +51,19 @@ nav {
   background-color: var(--azul-ts);
 }
 
-.caja-amarilla {
+.caja-pendiente {
   background-color: var(--amarillo-ts);
+  border: solid var(--amarillo);
 }
 
-.caja-verde {
+.caja-aprobado {
   background-color: var(--verde-ts);
+  border: solid var(--verde);
 }
 
-.caja-roja {
+.caja-rechazado {
   background-color: var(--rojo-ts);
+  border: solid var(--rojo);
 }
 
 .caja-negra {
@@ -79,27 +82,18 @@ nav {
 
 .caja-amarillaa {
   background-color: var(--amarillo);
-
 }
 
 .caja-azul {
   background-color: var(--azul);
 }
 
-.borde-amarillo {
-  border: solid var(--amarillo);
-}
-
-.borde-verde {
-  border: solid var(--verde);
-}
-
-.borde-rojo {
-  border: solid var(--rojo);
-}
-
 .borde-blanco {
   border: solid var(--blanco);
+}
+
+.borde-rojo{
+  border:  solid var(--rojo);
 }
 
 .borde-seleccion {
