@@ -12,6 +12,7 @@
   --negro-ts: rgba(0, 0, 0, 0.6);
   --blanco-ts: rgba(255, 255, 255, 0.3)
 }
+
 .blur-background {
   position: fixed;
   top: 0;
@@ -102,10 +103,10 @@ nav {
 }
 
 .borde-seleccion {
-  border-left: 5px solid var(--amarillo); 
+  border-left: 5px solid var(--amarillo);
 }
 
-.borde-nada{
+.borde-nada {
   border-left: none;
 }
 
@@ -151,6 +152,10 @@ hr {
 
 .rbc-toolbar button:hover {
   background-color: var(--azul-ts) !important;
+}
+
+.rbc-btn-group {
+  color: black;
 }
 
 .rbc-toolbar button:active {

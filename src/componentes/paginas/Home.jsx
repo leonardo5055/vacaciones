@@ -1,63 +1,191 @@
-import React from 'react'
-import Calendario from '../../img/calendario.png'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+    const [fechaInicio, setFechaInicio] = useState('');
+    const [diasVacaciones, setDiasVacaciones] = useState(0);
+    const [fechaFin, setFechaFin] = useState('');
+    const [motivos, setMotivos] = useState([]);
+    const [isSubmitting, setIsSubmitting] = useState(false); // Nuevo estado para rastrear la sumisión
+    const navigate = useNavigate();
+
+    // Obtener la información del empleado desde localStorage
+    const empleadoInfo = JSON.parse(localStorage.getItem('EmpleadoInfo'));
+
+    useEffect(() => {
+        const fetchMotivos = async () => {
+            try {
+                const response = await fetch('https://gestiondevacaciones-api-production.up.railway.app/api/motivos');
+                const data = await response.json();
+                setMotivos(data);
+            } catch (error) {
+                console.error('Error al obtener motivos:', error);
+            }
+        };
+
+        fetchMotivos();
+    }, []);
+
+    const handleFechaInicioChange = (event) => {
+        const selectedStartDate = event.target.value;
+        setFechaInicio(selectedStartDate);
+
+        if (selectedStartDate && diasVacaciones) {
+            const startDate = new Date(selectedStartDate);
+            const endDate = new Date(startDate);
+            endDate.setDate(startDate.getDate() + diasVacaciones);
+            setFechaFin(endDate.toISOString().split('T')[0]);
+        } else {
+            setFechaFin('');
+        }
+    };
+
+    const handleDiasVacacionesChange = (event) => {
+        const selectedDays = parseInt(event.target.value);
+        setDiasVacaciones(selectedDays);
+
+        if (fechaInicio) {
+            const startDate = new Date(fechaInicio);
+            const endDate = new Date(startDate);
+            endDate.setDate(startDate.getDate() + selectedDays);
+            setFechaFin(endDate.toISOString().split('T')[0]);
+        } else {
+            setFechaFin('');
+        }
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        // Deshabilitar el botón y mostrar que la solicitud está en proceso
+        setIsSubmitting(true);
+
+        if (!fechaInicio || !diasVacaciones) {
+            alert("Por favor, completa todos los campos requeridos.");
+            setIsSubmitting(false); // Habilitar el botón de nuevo
+            return;
+        }
+
+        const motivoSeleccionado = document.getElementById('motivo').value;
+        if (motivoSeleccionado === '0') {
+            alert("Por favor, selecciona un motivo.");
+            setIsSubmitting(false); // Habilitar el botón de nuevo
+            return;
+        }
+
+        const detalles = document.getElementById('detalles').value;
+
+        const nuevaVacacion = {
+            empleado_id: empleadoInfo.usuario_id,
+            motivo_id: motivoSeleccionado,
+            descripcion: detalles,
+            fecha_inicio: fechaInicio,
+            fecha_fin: fechaFin,
+            dias_solicitados: diasVacaciones
+        };
+
+        try {
+            const response = await fetch('https://gestiondevacaciones-api-production.up.railway.app/api/vacaciones', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(nuevaVacacion),
+            });
+
+            if (!response.ok) {
+                throw new Error('Error en la creación de la solicitud de vacaciones');
+            }
+
+            const data = await response.json();
+            alert(data.message);
+
+            // Redirige al usuario a la página de historial
+            navigate('/historial');
+        } catch (error) {
+            console.error('Error al enviar la solicitud:', error);
+            alert('Hubo un problema al enviar la solicitud de vacaciones.');
+        } finally {
+            setIsSubmitting(false); // Habilitar el botón de nuevo después de la solicitud
+        }
+    };
+
     return (
         <div className="container">
             <h1 className='text-light text-center text-decoration-underline'>Toma tus vacaciones</h1>
             <div className='row justify-content-center'>
-                <div className='col-lg-6 col-md-8 col-sm-12'>
-                    <form action="">
-                        <p className='text-light'>Ingrese el comienzo de sus vacaciones</p>
-                        <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" />
-                        <p className='text-light mt-3'>¿Cuantos días de vacaciones se va a tomar?</p>
-                        <select className="form-select form-select-lg mb-3" aria-label="Large select example">
-                            <option selected>Selecciona una opción</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="1">4</option>
-                            <option value="2">5</option>
-                            <option value="3">6</option>
-                            <option value="1">7</option>
-                            <option value="2">8</option>
-                            <option value="3">9</option>
-                            <option value="1">10</option>
-                            <option value="2">11</option>
-                            <option value="3">12</option>
-                            <option value="1">13</option>
-                            <option value="2">14</option>
-                            <option value="3">15</option>
-                            <option value="1">16</option>
-                            <option value="2">17</option>
-                            <option value="3">18</option>
-                            <option value="3">19</option>
-                            <option value="1">20</option>
-                            <option value="2">21</option>
-                        </select>
-                        <p className='text-light'>Ingrese el motivo</p>
-                        <select className="form-select form-select-lg mb-3" aria-label="Large select example">
-                            <option selected>Selecciona una opción</option>
-                            <option value="1">Vacaciones</option>
-                            <option value="2">Enfermedad</option>
-                            <option value="2">Licencia</option>
-                        </select>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" className="form-label text-light">Detalle:</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <div className='col-lg-6 col-sm-12'>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <label htmlFor="fecha_inicio" className="form-label text-light">
+                                Fecha de Inicio de Vacaciones
+                            </label>
+                            <input
+                                type="date"
+                                id="fecha_inicio"
+                                name="fecha_inicio"
+                                className="form-control"
+                                value={fechaInicio}
+                                onChange={handleFechaInicioChange}
+                                min={new Date().toISOString().split('T')[0]}
+                                required
+                            />
                         </div>
-                        <Link to="/historial"><button className='btn btn-primary px-4 py-2 rounded-pill'>Tomar vacaciones</button></Link>
-
+                        <div className="mb-3">
+                            <label htmlFor="dias_vacaciones" className="form-label text-light">
+                                ¿Cuántos días de vacaciones se va a tomar?
+                            </label>
+                            <select
+                                id="dias_vacaciones"
+                                className="form-select form-select-lg mb-3"
+                                onChange={handleDiasVacacionesChange}
+                                value={diasVacaciones}
+                                required
+                            >
+                                <option value="0" disabled>Selecciona una opción</option>
+                                {[...Array(28).keys()].map(i => (
+                                    <option key={i} value={i + 1}>{i + 1}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="fecha_fin" className="form-label text-light">
+                                Fecha de Fin
+                            </label>
+                            <input
+                                type="date"
+                                id="fecha_fin"
+                                name="fecha_fin"
+                                className="form-control"
+                                value={fechaFin}
+                                readOnly
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="motivo" className="form-label text-light">
+                                Motivo
+                            </label>
+                            <select id="motivo" className="form-select form-select-lg mb-3" required>
+                                <option value="0">Selecciona una opción</option>
+                                {motivos.map(motivo => (
+                                    <option key={motivo.motivo_id} value={motivo.motivo_id}>
+                                        {motivo.motivo}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="detalles" className="form-label text-light">Detalle</label>
+                            <textarea className="form-control" id="detalles" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" className='btn btn-primary px-4 py-2 rounded-pill' disabled={isSubmitting}>
+                            {isSubmitting ? 'Enviando...' : 'Tomar vacaciones'}
+                        </button>
                     </form>
-                </div>
-                <div className='col-lg-6 d-none d-lg-block'>
-                    <img src={Calendario} alt="" className="img-fluid" />
                 </div>
             </div>
         </div>
-
-    )
+    );
 }
 
-export default Home
+export default Home;
