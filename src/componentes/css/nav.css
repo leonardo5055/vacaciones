@@ -2,3 +2,6 @@
     color: var(--amarillo) !important;
     text-decoration: underline !important;
 }
+.texto-rojo{
+    color: var(--rojo);
+}

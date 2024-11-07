@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Si from '../../img/si.png';
 import No from '../../img/no.png';
+import Cargando from '../Cargando/Cargando';
 
 function SolicitudesAdmin() {
     const [empleados, setEmpleados] = useState([]);
@@ -55,7 +56,9 @@ function SolicitudesAdmin() {
                 <h2>Solicitudes pendientes</h2>
                 <hr />
                 {loading ? (
-                    <p>Cargando...</p>
+                    <div className='d-flex justify-content-center align-items-center'>
+                        <Cargando/>
+                    </div>
                 ) : (
                     empleados.map((empleado) => (
                         <div

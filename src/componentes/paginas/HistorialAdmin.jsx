@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Cargando from '../Cargando/Cargando';
 
 function HistorialAdmin() {
     const [empleados, setEmpleados] = useState([]);
@@ -35,7 +36,9 @@ function HistorialAdmin() {
                     <h2 className='m-3 d-flex'>Historial</h2>
                     <hr />
                     {loading ? (
-                        <p>Cargando...</p>
+                        <div className='d-flex justify-content-center align-items-center'>
+                            <Cargando/>
+                        </div>
                     ) : (
                         empleados.map((empleado) => (
                             <div>

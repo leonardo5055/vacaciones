@@ -164,3 +164,7 @@ hr {
   color: var(--azul);
   font-size: 24px
 }
+
+.texto-rojo{
+  color: var(--rojo);
+}

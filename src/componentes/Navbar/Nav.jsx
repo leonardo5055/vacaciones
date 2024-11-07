@@ -51,6 +51,33 @@ function Nav() {
                         Calendario
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink
+                        to="/solicitudes-admin"
+                        className={({ isActive }) => (isActive ? 'active ' : '') + "text-decoration-none text-danger"}
+                        aria-label="Solicitudes"
+                    >
+                        Solicitudes
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                        to="/historial-admin"
+                        className={({ isActive }) => (isActive ? 'active ' : '') + "text-decoration-none text-danger"}
+                        aria-label="Historial"
+                    >
+                        Historial
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                        to="/crear-usuario"
+                        className={({ isActive }) => (isActive ? 'active ' : '') + "text-decoration-none text-danger"}
+                        aria-label="Crear usuarios"
+                    >
+                        Crear usuarios
+                    </NavLink>
+                </li>
             </ul>
             <div className="d-flex align-items-center">
                 {empleadoInfo && (

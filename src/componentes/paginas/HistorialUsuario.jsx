@@ -11,6 +11,22 @@ function Historial() {
         setVisible(!visible); // Muestra el contenido adicional
     };
 
+    const calcularVacaciones = (fecha) => {
+        const fecha1 = new Date(fecha);
+        const fecha2 = new Date(); // Fecha actual
+    
+        // Obtenemos el año y mes de cada fecha
+        const año1 = fecha1.getFullYear();
+        const mes1 = fecha1.getMonth();
+        const año2 = fecha2.getFullYear();
+        const mes2 = fecha2.getMonth();
+    
+        // Calculamos la diferencia en meses
+        const diferenciaMeses = (año2 - año1) * 12 + (mes1 - mes2);
+        return Math.abs(diferenciaMeses); //diferencia de meses
+    };
+    const mesesDeDiferencia = calcularVacaciones(empleadoInfo.fecha_contratacion);
+    console.log(mesesDeDiferencia)
     useEffect(() => {
         const fetchVacaciones = async () => {
             try {
@@ -40,7 +56,10 @@ function Historial() {
                     cajaClase += 'caja-pendiente';
                 } else if (vacacion.estado === "Rechazado") {
                     cajaClase += 'caja-rechazado';
-                }
+                } else if (mesesDeDiferencia <= 0){
+                    cajaClase += 'caja-rechazado';
+                };
+
                 return (
                     <div key={index} className={`${cajaClase} gap-5 m-5`}>
                         <div className='mt-3'>
