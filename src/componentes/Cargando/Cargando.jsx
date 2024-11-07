@@ -3,7 +3,7 @@ import '../Cargando/Cargando.css';
 
 const Cargando = () => {
   return (
-    <div style={{ textAlign: 'center', padding: '50px' }}>
+    <div className="d-flex justify-content-center align-items-center w-100 vh-100">
       <div className="cargando"></div>
     </div>
   );
