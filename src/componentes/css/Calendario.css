@@ -1,0 +1,42 @@
+.rbc-calendar {
+  background-color: none !important;
+}
+
+.rbc-month-view {
+  background-color: none !important;
+}
+
+.rbc-date-cell {
+  font-weight: 700 !important;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+  padding: 10px;
+}
+
+.rbc-off-range-bg {
+  background-color: var(--blanco-ts) !important;
+}
+
+.rbc-today {
+  background-color: var(--azul-ts) !important;
+}
+
+.rbc-toolbar button {
+  color: white !important;
+}
+
+.rbc-toolbar button:hover {
+  background-color: var(--azul-ts) !important;
+}
+
+.rbc-btn-group {
+  color: black;
+}
+
+.rbc-toolbar button:active {
+  background-color: var(--azul-ts) !important;
+}
+
+.rbc-toolbar button:focus {
+  background-color: var(--azul-ts) !important;
+}

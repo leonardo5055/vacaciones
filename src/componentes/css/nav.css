@@ -2,6 +2,7 @@
     color: var(--amarillo) !important;
     text-decoration: underline !important;
 }
-.texto-rojo{
-    color: var(--rojo);
+
+nav {
+    background-color: var(--azul-ts);
 }

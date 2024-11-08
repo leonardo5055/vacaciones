@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Logo from '../../img/logo.jpg';
-import "../css/nav.css";
+import "../Css/nav.css";
 
 function Nav() {
     const navigate = useNavigate();

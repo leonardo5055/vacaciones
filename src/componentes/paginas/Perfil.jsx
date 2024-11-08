@@ -25,12 +25,12 @@ function Perfil() {
                                 <input class="form-control" type="file" id="imagen" accept=".jpg, .png" multiple/>
                             </div>
                             <div className='d-flex m-3 gap-3 justify-content-center'>
-                                <button className='btn btn-azul'>Confirmar</button>
-                                <button className='btn btn-rojo'>Cancelar</button>
+                                <button className='btn btn-primary'>Confirmar</button>
+                                <button className='btn btn-danger'>Cancelar</button>
                             </div>
                         </div>
                     </form>
-                    <button className='btn-azul px-4 py-2 rounded-pill text-light border-0 w-100'
+                    <button className='btn btn-primary px-4 py-2 rounded-pill text-light border-0 w-100'
                         data-bs-toggle="collapse"
                         data-bs-target="#contenidoAdicional"
                         aria-expanded="false"
