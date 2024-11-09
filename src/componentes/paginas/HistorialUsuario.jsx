@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Boton from '../Componentes/Boton';
 
 function Historial() {
     const [vacacionesEmpleado, setVacacionesEmpleado] = useState([]);
@@ -14,13 +15,13 @@ function Historial() {
     const calcularVacaciones = (fecha) => {
         const fecha1 = new Date(fecha);
         const fecha2 = new Date(); // Fecha actual
-    
+
         // Obtenemos el año y mes de cada fecha
         const año1 = fecha1.getFullYear();
         const mes1 = fecha1.getMonth();
         const año2 = fecha2.getFullYear();
         const mes2 = fecha2.getMonth();
-    
+
         // Calculamos la diferencia en meses
         const diferenciaMeses = (año2 - año1) * 12 + (mes1 - mes2);
         return Math.abs(diferenciaMeses); //diferencia de meses
@@ -56,12 +57,10 @@ function Historial() {
                     cajaClase += 'caja-pendiente';
                 } else if (vacacion.estado === "Rechazado") {
                     cajaClase += 'caja-rechazado';
-                } else if (mesesDeDiferencia <= 0){
-                    cajaClase += 'caja-rechazado';
-                };
+                }
 
                 return (
-                    <div key={index} className={`${cajaClase} gap-5 m-5`}>
+                    <div key={index} className={`${cajaClase} gap-5 m-5 py-3`}>
                         <div className='mt-3'>
                             {/* Convertir las fechas al formato deseado */}
                             <p>Vacaciones del {new Date(vacacion.fecha_inicio).toLocaleDateString('es-AR')}</p>
@@ -72,9 +71,7 @@ function Historial() {
 
                         {/* Agregar el botón si el estado es "Rechazado" */}
                         {vacacion.estado === "Rechazado" && (
-                            <button className="btn btn-danger text-light" onClick={hizoClick}>
-                                Motivo de rechazo
-                            </button>
+                            <Boton tipo="danger" texto="Motivo de rechazo" tamanio="10" onClick={hizoClick}/>
                         )}
                     </div>
                 );
@@ -86,9 +83,7 @@ function Historial() {
                             <label htmlFor="exampleFormControlTextarea1" className="form-label fs-2 mt-3">Motivo de rechazo</label>
                             <hr />
                             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates, magni accusamus pariatur consequuntur corporis at blanditiis! Deleniti neque voluptate saepe eveniet, eos tempore harum odit delectus labore consequatur placeat ipsa.</p>
-                            <button className='mt-5 btn-danger text-light btn' onClick={hizoClick}>
-                                Confirmar
-                            </button>
+                            <Boton tipo="danger" texto="Cerrar" tamanio="50" onClick={hizoClick}/>
                         </div>
                     </div>
                 </div>

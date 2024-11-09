@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../img/logo.jpg';
+import Boton from '../Componentes/Boton';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -57,7 +58,7 @@ function Login() {
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} class="form-control text-light bg-transparent" id="floatingInput" required placeholder="Contraseña" />
                     <label for="floatingPassword">Contraseña</label>
                 </div>
-                <button type="submit" className="btn btn-primary w-100">Continuar</button>
+                <Boton tipo="primary" texto="Continuar" tamanio="100" type="submit"></Boton>
             </form>
         </div>
     );

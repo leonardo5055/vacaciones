@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Cargando from '../Cargando/Cargando';
+import Boton from '../Componentes/Boton';
 
 function SolicitudesAdmin() {
     const [empleados, setEmpleados] = useState([]);
@@ -121,12 +122,10 @@ function SolicitudesAdmin() {
                             <label htmlFor="exampleFormControlTextarea1" className="form-label fs-2 mt-3">Motivo de rechazo</label>
                             <hr />
                             <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            <button className='mt-3 me-3 btn-success text-light btn' onClick={handleConfirmReject}>
-                                Confirmar
-                            </button>
-                            <button className='mt-3 btn-danger text-light btn' onClick={handleConfirmReject}>
-                                Cancelar
-                            </button>
+                            <div className='d-flex justify-content-center'>
+                                <Boton tipo="success" texto="Confirmar" tamanio="50" onClick={handleConfirmReject} />
+                                <Boton tipo="danger" texto="Cancelar" tamanio="50" onClick={handleConfirmReject} />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -139,12 +138,10 @@ function SolicitudesAdmin() {
                             <label htmlFor="exampleFormControlTextarea1" className="form-label fs-2 mt-3">Confirmar</label>
                             <hr />
                             <p>Seguro que quiere confimar la solicitud de {selectEmpleado.nombres} {selectEmpleado.apellidos}</p>
-                            <button className='mt-3 btn-success text-light btn me-3' onClick={handleConfirConfir}>
-                                Si
-                            </button>
-                            <button className='mt-3 btn-danger text-light btn' onClick={handleConfirConfir}>
-                                No
-                            </button>
+                            <div className='d-flex justify-content-center'>
+                                <Boton tipo="success" texto="Si" tamanio="25" onClick={handleConfirConfir} />
+                                <Boton tipo="danger" texto="No" tamanio="25" onClick={handleConfirConfir} />
+                            </div>
                         </div>
                     </div>
                 </div>

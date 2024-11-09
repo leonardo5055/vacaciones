@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Boton from '../Componentes/Boton'
 
 function DatosPersonales() {
     return (
@@ -31,7 +32,8 @@ function DatosPersonales() {
                     <label>Cargo</label>
                 </div>
                 <Link to="/solicitudes">
-                    <button type="button" className="btn btn-primary w-100">Crear usuario</button>
+                    <Boton tipo="primary" texto="Crear usuario" tamanio="100">
+                    </Boton>
                 </Link>
             </form>
         </div>

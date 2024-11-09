@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Boton from '../Componentes/Boton';
 
 function Home() {
     const [fechaInicio, setFechaInicio] = useState('');
@@ -208,9 +209,9 @@ function Home() {
                             <label htmlFor="detalles" className="form-label text-light">Detalle</label>
                             <textarea className="form-control" id="detalles" rows="3" required></textarea>
                         </div>
-                        <button type="submit" className='btn btn-primary px-4 py-2 rounded-pill' disabled={isSubmitting}>
+                        <Boton tipo="primary" texto="Tomar vacaciones" tamanio="100" type="submit" disabled={isSubmitting}>
                             {isSubmitting ? 'Enviando...' : 'Tomar vacaciones'}
-                        </button>
+                        </Boton>
                     </form>
                 </div>
             </div>

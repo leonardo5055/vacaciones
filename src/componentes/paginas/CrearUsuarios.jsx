@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Boton from '../Componentes/Boton'
 
 function CrearUsuarios() {
     return (
@@ -15,9 +16,8 @@ function CrearUsuarios() {
                     <label>Contraseña</label>
                 </div>
                 <Link to="/datos-personales">
-                    <button type="button" className="btn btn-primary w-100">
-                        Continuar
-                    </button>
+                    <Boton tipo="primary" texto="Continuar" tamanio="100">
+                    </Boton>
                 </Link>
             </form>
         </div>

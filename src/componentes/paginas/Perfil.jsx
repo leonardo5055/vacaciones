@@ -1,4 +1,5 @@
 import React from 'react'
+import Boton from '../Componentes/Boton';
 
 function Perfil() {
     let empleado = JSON.parse(localStorage.getItem('EmpleadoInfo'));
@@ -24,9 +25,9 @@ function Perfil() {
                                 <label for="formFileMultiple" class="form-label">Imagen</label>
                                 <input class="form-control" type="file" id="imagen" accept=".jpg, .png" multiple/>
                             </div>
-                            <div className='d-flex m-3 gap-3 justify-content-center'>
-                                <button className='btn btn-primary'>Confirmar</button>
-                                <button className='btn btn-danger'>Cancelar</button>
+                            <div className='d-flex justify-content-center'>
+                                <Boton tipo="primary" texto="Confirmar" tamanio="50"/>
+                                <Boton tipo="danger" texto="Cancelar" tamanio="50"/>
                             </div>
                         </div>
                     </form>
