@@ -64,37 +64,45 @@ function SolicitudesAdmin() {
     };
 
     return (
-        <div className='d-flex justify-content-center gap-5 mt-5'>
-            <div className='caja-negra text-light text-center fs-4'>
-                <h2>Solicitudes pendientes</h2>
-                <hr />
+        <div className="d-flex justify-content-center gap-5 mt-5 mx-5">
+            {/* Contenedor de solicitudes pendientes */}
+            <div className="caja-negra text-light text-center fs-4 col-auto" style={{ maxHeight: '600px', overflowY: 'auto' }}>
+                <div className="sticky-top caja-negra">
+                    <h2 className="pt-3">Solicitudes Pendientes</h2>
+                    <hr />
+                </div>
                 {loading ? (
-                    <div className='d-flex justify-content-center align-items-center'>
+                    <div className="d-flex justify-content-center align-items-center">
                         <Cargando />
                     </div>
                 ) : (
                     empleados.map((empleado) => (
                         <div
                             key={empleado.vacacion_id}
-                            className={`d-flex align-items-center border-bottom justify-content-between ${selectEmpleado?.vacacion_id === empleado.vacacion_id ? 'borde-seleccion' : ''}`}
-                            onClick={() => handleSelectEmpleado(empleado)} // Muestra detalles al hacer clic
+                            className={`d-flex align-items-center border-bottom justify-content-between p-3 ${selectEmpleado?.vacacion_id === empleado.vacacion_id ? 'borde-seleccion' : ''}`}
+                            onClick={() => handleSelectEmpleado(empleado)}
                         >
-                            <img src={empleado.avatar} className='rounded-circle' width={60} alt={empleado.nombres} />
-                            <div>
-                                <p> {empleado.nombres} {empleado.apellidos}</p>
-                                <p>{empleado.fecha_inicio} - {empleado.fecha_fin}</p>
-                                <div>
-                                    <span className='circulo-vacaciones'></span>
-                                    <span className='text-ligth'>{empleado.motivo}</span>
+                            <div className="col-auto">
+                                <img src={empleado.avatar} className="rounded-circle" width={60} alt={empleado.nombres} />
+                            </div>
+
+                            <div className="flex-grow-1 d-flex flex-column align-items-start ms-3">
+                                <p className="mb-1 fw-bold text-truncate" style={{ maxWidth: '200px' }}>{empleado.nombres} {empleado.apellidos}</p>
+                                <p className="fs-6 mb-1 text-truncate" style={{ maxWidth: '200px' }}>{empleado.fecha_inicio} - {empleado.fecha_fin}</p>
+                                <div className="d-flex align-items-center">
+                                    <span className="circulo-vacaciones me-2"></span>
+                                    <span className="text-light text-truncate" style={{ maxWidth: '180px' }}>{empleado.motivo}</span>
                                 </div>
                             </div>
-                            <div className='gap-3'>
-                                <button className='btn' onClick={(e) => { e.stopPropagation(); handleConfir(); }}>{/* Si */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="text-success bi bi-check-circle-fill" viewBox="0 0 16 16">
+
+                            {/* Botones de aprobación/rechazo */}
+                            <div className="col-auto d-flex gap-2">
+                                <button className="btn p-0" onClick={(e) => { e.stopPropagation(); handleConfir(); }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="text-success bi bi-check-circle-fill" viewBox="0 0 16 16">
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                                     </svg>
                                 </button>
-                                <button className='btn' onClick={(e) => { e.stopPropagation(); handleReject(); }}> {/* No */}
+                                <button className="btn p-0" onClick={(e) => { e.stopPropagation(); handleReject(); }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="text-danger bi bi-x-circle-fill" viewBox="0 0 16 16">
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
                                     </svg>
@@ -144,34 +152,34 @@ function SolicitudesAdmin() {
 
             {/* Caja de detalles del empleado en la derecha */}
             {selectEmpleado && visibleUsuario && (
-                <div className='caja-negra w-50 text-light fs-4 p-4'>
+                <div className="caja-negra text-light fs-4 p-4 col" style={{ maxHeight: 'max-content' }}>
                     <h2>Detalles del Usuario</h2>
                     <hr />
                     <div>
-                        <div className='d-flex align-items-center m-3'>
-                            <img src={selectEmpleado.avatar} className='rounded-circle' width={60} alt={selectEmpleado.nombres} />
-                            <div className='d-flex flex-column'>
-                                <p className='m-3'>{selectEmpleado.nombres} {selectEmpleado.apellidos}</p>
+                        <div className="d-flex align-items-center m-3">
+                            <img src={selectEmpleado.avatar} className="rounded-circle" width={60} alt={selectEmpleado.nombres} />
+                            <div className="d-flex flex-column">
+                                <p className="m-3">{selectEmpleado.nombres} {selectEmpleado.apellidos}</p>
                                 <div>
-                                    <span className='circulo-vacaciones'></span>
-                                    <span className='text-ligth'>{selectEmpleado.motivo}</span>
+                                    <span className="circulo-vacaciones"></span>
+                                    <span className="text-light">{selectEmpleado.motivo}</span>
                                 </div>
                             </div>
                         </div>
                         <hr />
-                        <div className='d-flex justify-content-around text-center'>
+                        <div className="d-flex justify-content-around text-center">
                             <div>
-                                <div className='caja-blanca rounded-3 me-3'>
-                                    <p className='bg-danger rounded-top'>{selectEmpleado.mes_inicio}</p>
-                                    <p className='text-dark '>{selectEmpleado.dia_inicio}</p>
-                                    <p className='text-dark'>{selectEmpleado.dia_semana_inicio}</p>
+                                <div className="caja-blanca rounded-3 me-3">
+                                    <p className="bg-danger rounded-top">{selectEmpleado.mes_inicio}</p>
+                                    <p className="text-dark">{selectEmpleado.dia_inicio}</p>
+                                    <p className="text-dark">{selectEmpleado.dia_semana_inicio}</p>
                                 </div>
                             </div>
                             <div>
-                                <div className='caja-blanca rounded-3 me-3'>
-                                    <p className='bg-danger rounded-top'>{selectEmpleado.mes_fin}</p>
-                                    <p className='text-dark '>{selectEmpleado.dia_fin}</p>
-                                    <p className='text-dark'>{selectEmpleado.dia_semana_fin}</p>
+                                <div className="caja-blanca rounded-3 me-3">
+                                    <p className="bg-danger rounded-top">{selectEmpleado.mes_fin}</p>
+                                    <p className="text-dark">{selectEmpleado.dia_fin}</p>
+                                    <p className="text-dark">{selectEmpleado.dia_semana_fin}</p>
                                 </div>
                             </div>
                             <div>
@@ -179,14 +187,14 @@ function SolicitudesAdmin() {
                                 <p>Falta la info del back-end</p>
                             </div>
                         </div>
-                        <div className='borde-blanco d-flex rounded-3 fs-5 align-items-center justify-content-center mt-3'>
-                            <p className='border-end border-3 pe-3'>{selectEmpleado.dias_solicitados} días solicitados</p>
-                            <p className='ps-3'>falta back-end dias disponibles</p>
+                        <div className="borde-blanco d-flex rounded-3 fs-5 align-items-center justify-content-center mt-3">
+                            <p className="border-end border-3 pe-3">{selectEmpleado.dias_solicitados} días solicitados</p>
+                            <p className="ps-3">falta back-end dias disponibles</p>
                         </div>
                         <hr />
-                        <div className='text-light m-3'>
+                        <div className="text-light m-3">
                             <p>Descripción:</p>
-                            <p className='li-azul text-light'>
+                            <p className="li-azul text-light">
                                 {selectEmpleado.descripcion ? selectEmpleado.descripcion : 'El empleado no escribió nada en la descripción'}
                             </p>
                         </div>

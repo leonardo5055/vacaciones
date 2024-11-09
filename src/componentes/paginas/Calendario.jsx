@@ -3,7 +3,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'moment/locale/es'; // Importa el idioma español para moment
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import '../Css/Calendario.css'; // Asegúrate de incluir tu archivo de estilos aquí
+import '../css/Calendario.css'; // Asegúrate de incluir tu archivo de estilos aquí
 
 // Configura moment en español
 moment.locale('es');
