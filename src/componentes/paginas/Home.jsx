@@ -113,29 +113,29 @@ function Home() {
     const calcularVacaciones = (fecha) => {
         const fecha1 = new Date(fecha);
         const fecha2 = new Date(); // Fecha actual
-    
+
         // Obtenemos el año y mes de cada fecha
         const año1 = fecha1.getFullYear();
         const mes1 = fecha1.getMonth();
         const año2 = fecha2.getFullYear();
         const mes2 = fecha2.getMonth();
-    
+
         // Calculamos la diferencia en meses
         const diferenciaMeses = (año2 - año1) * 12 + (mes1 - mes2);
         return Math.abs(diferenciaMeses); //diferencia de meses
     };
-    
+
     const mesesDeDiferencia = calcularVacaciones(empleadoInfo.fecha_contratacion);
     console.log("La diferencia en meses es:", mesesDeDiferencia);
     if (mesesDeDiferencia >= 6 && mesesDeDiferencia <= 60) {
         console.log("mas de 6 meses menos de 5 años")
         const diasDeVacaciones = 14;
     }
-    else if (mesesDeDiferencia >= 60 && mesesDeDiferencia <= 120){
+    else if (mesesDeDiferencia >= 60 && mesesDeDiferencia <= 120) {
         const diasDeVacaciones = 21;
         console.log("mas de 5 años menos de 10 años")
     }
-    else if (mesesDeDiferencia >= 240){
+    else if (mesesDeDiferencia >= 240) {
         const diasDeVacaciones = 28;
         console.log("mas de 10 años")
     }

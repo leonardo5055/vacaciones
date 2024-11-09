@@ -19,6 +19,12 @@ function SolicitudesAdmin() {
                 }
                 const data = await response.json();
                 setEmpleados(data);
+
+                // Seleccionar automáticamente el primer empleado si hay datos
+                if (data.length > 0) {
+                    setSelectEmpleado(data[0]);
+                    setVisibleUsuario(true);
+                }
             } catch (error) {
                 alert('Error al obtener los empleados:', error);
             } finally {
@@ -30,16 +36,16 @@ function SolicitudesAdmin() {
     }, []);
 
     const handleSelectEmpleado = (empleado) => {
+        // Si el empleado seleccionado ya es el actual, no hacer nada
         if (selectEmpleado?.vacacion_id === empleado.vacacion_id) {
-            // Si se selecciona el mismo empleado, ocultar los detalles
-            setSelectEmpleado(null);
-            setVisibleUsuario(false);
-        } else {
-            // Selecciona un nuevo empleado y muestra sus detalles
-            setSelectEmpleado(empleado);
-            setVisibleUsuario(true); // Mostrar detalles del usuario
+            return;
         }
+
+        // Selecciona el nuevo empleado y muestra sus detalles
+        setSelectEmpleado(empleado);
+        setVisibleUsuario(true); // Asegurarse de que se muestren los detalles del usuario
     };
+
 
     const handleReject = () => {
         setVisible(true); // Muestra la caja de motivo de rechazo
