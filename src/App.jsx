@@ -2,6 +2,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import routes from './router/router'; // Asegúrate de que esta ruta sea correcta
 import { Suspense, useEffect } from 'react';
+import Cargando from './componentes/Cargando/Cargando';
 
 // Componente principal de la aplicación
 function App() {
@@ -27,7 +28,7 @@ function App() {
 
   return (
     <Router>
-      <Suspense fallback={<div className='text-bg-light'>Cargando...</div>}>
+      <Suspense fallback={<Cargando/>}>
         <Routes>
           {routes.map((route, index) => (
             <Route key={index} path={route.path} element={route.element}>

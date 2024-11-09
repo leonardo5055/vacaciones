@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Cargando from '../Cargando/Cargando';
 
 function HistorialAdmin() {
     const [empleados, setEmpleados] = useState([]);
@@ -27,15 +28,25 @@ function HistorialAdmin() {
 
     return (
         <div>
-            <div className='d-flex justify-content-center'>
-                <input className="form-control mt-5 w-50" type="search" placeholder="Buscar" aria-label="Buscar" />
+            <div className="d-flex justify-content-center">
+                <div className="input-group mt-5 w-50">
+                    <span className="input-group-text bg-white border-end-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </span>
+                    <input className="form-control border-start-0" type="search" placeholder="Buscar" aria-label="Buscar" />
+                </div>
             </div>
+
             <div className='d-flex justify-content-center gap-5 mt-5'>
                 <div className='caja-negra text-light text-center fs-4 w-50'>
                     <h2 className='m-3 d-flex'>Historial</h2>
                     <hr />
                     {loading ? (
-                        <p>Cargando...</p>
+                        <div className='d-flex justify-content-center align-items-center'>
+                            <Cargando />
+                        </div>
                     ) : (
                         empleados.map((empleado) => (
                             <div>

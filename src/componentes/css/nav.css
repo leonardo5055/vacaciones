@@ -2,3 +2,7 @@
     color: var(--amarillo) !important;
     text-decoration: underline !important;
 }
+
+nav {
+    background-color: var(--azul-ts);
+}
