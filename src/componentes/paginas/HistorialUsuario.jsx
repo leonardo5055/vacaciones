@@ -4,30 +4,16 @@ import Boton from '../Componentes/Boton';
 function Historial() {
     const [vacacionesEmpleado, setVacacionesEmpleado] = useState([]);
     const [visible, setVisible] = useState(false);
+    const [motivoRechazo, setMotivoRechazo] = useState(""); // Estado para manejar el motivo de rechazo
 
     // Obtener la información del empleado desde localStorage
     const empleadoInfo = JSON.parse(localStorage.getItem('EmpleadoInfo'));
 
-    const hizoClick = () => {
-        setVisible(!visible); // Muestra el contenido adicional
+    const hizoClick = (motivo) => {
+        setVisible(!visible);
+        setMotivoRechazo(motivo); // Actualiza el motivo de rechazo cuando se hace clic en el botón
     };
 
-    const calcularVacaciones = (fecha) => {
-        const fecha1 = new Date(fecha);
-        const fecha2 = new Date(); // Fecha actual
-
-        // Obtenemos el año y mes de cada fecha
-        const año1 = fecha1.getFullYear();
-        const mes1 = fecha1.getMonth();
-        const año2 = fecha2.getFullYear();
-        const mes2 = fecha2.getMonth();
-
-        // Calculamos la diferencia en meses
-        const diferenciaMeses = (año2 - año1) * 12 + (mes1 - mes2);
-        return Math.abs(diferenciaMeses); //diferencia de meses
-    };
-    const mesesDeDiferencia = calcularVacaciones(empleadoInfo.fecha_contratacion);
-    console.log(mesesDeDiferencia)
     useEffect(() => {
         const fetchVacaciones = async () => {
             try {
@@ -63,27 +49,30 @@ function Historial() {
                     <div key={index} className={`${cajaClase} gap-5 m-5 py-3`}>
                         <div className='mt-3'>
                             {/* Convertir las fechas al formato deseado */}
-                            <p>Vacaciones del {new Date(vacacion.fecha_inicio).toLocaleDateString('es-AR')}</p>
-                            <p>Hasta el {new Date(vacacion.fecha_fin).toLocaleDateString('es-AR')}</p>
+                            <p>Vacaciones del {vacacion.fecha_inicio}</p>
+                            <p>Hasta el {vacacion.fecha_fin}</p>
                         </div>
                         <p className='mt-3'>Días de vacaciones: {vacacion.dias_solicitados}</p>
                         <p className='mt-3'>Días sobrantes: 17 </p> {/* Ajusta los días sobrantes si es necesario */}
 
                         {/* Agregar el botón si el estado es "Rechazado" */}
                         {vacacion.estado === "Rechazado" && (
-                            <Boton tipo="danger" texto="Motivo de rechazo" tamanio="10" onClick={hizoClick}/>
+                            <Boton tipo="danger" texto="Motivo de rechazo" tamanio="10" onClick={() => hizoClick(vacacion.descripcion_rechazo)} />
                         )}
                     </div>
                 );
             })}
+
+            {/* Mostrar el motivo de rechazo en un modal cuando se haga clic */}
             {visible && (
                 <div className="blur-background">
                     <div className="caja-negra border-danger px-5 d-flex flex-column text-light text-center p-3 w-25">
                         <div className="mb-3">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label fs-2 mt-3">Motivo de rechazo</label>
                             <hr />
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates, magni accusamus pariatur consequuntur corporis at blanditiis! Deleniti neque voluptate saepe eveniet, eos tempore harum odit delectus labore consequatur placeat ipsa.</p>
-                            <Boton tipo="danger" texto="Cerrar" tamanio="50" onClick={hizoClick}/>
+                            {/* Mostrar el motivo de rechazo */}
+                            <p>{motivoRechazo}</p>
+                            <Boton tipo="danger" texto="Cerrar" tamanio="50" onClick={hizoClick} />
                         </div>
                     </div>
                 </div>

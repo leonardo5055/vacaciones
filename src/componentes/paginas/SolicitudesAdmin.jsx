@@ -9,32 +9,34 @@ function SolicitudesAdmin() {
     const [visibleSi, setVisibleSi] = useState(false);
     const [visibleUsuario, setVisibleUsuario] = useState(false);
     const [selectEmpleado, setSelectEmpleado] = useState(null);
+    const [descripMotivoRechazo, setDescripMotivoRechazo] = useState('');
+
 
     // Fetch empleados data from API
     useEffect(() => {
-        const fetchEmpleados = async () => {
-            try {
-                const response = await fetch('https://gestiondevacaciones-api-production.up.railway.app/api/admin/vacaciones');
-                if (!response.ok) {
-                    throw new Error('Error en la red');
-                }
-                const data = await response.json();
-                setEmpleados(data);
-
-                // Seleccionar automáticamente el primer empleado si hay datos
-                if (data.length > 0) {
-                    setSelectEmpleado(data[0]);
-                    setVisibleUsuario(true);
-                }
-            } catch (error) {
-                alert('Error al obtener los empleados:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchEmpleados();
     }, []);
+
+    const fetchEmpleados = async () => {
+        try {
+            const response = await fetch('https://gestiondevacaciones-api-production.up.railway.app/api/admin/vacaciones');
+            if (!response.ok) {
+                throw new Error('Error en la red');
+            }
+            const data = await response.json();
+            setEmpleados(data);
+
+            // Seleccionar automáticamente el primer empleado si hay datos
+            if (data.length > 0) {
+                setSelectEmpleado(data[0]);
+                setVisibleUsuario(true);
+            }
+        } catch (error) {
+            alert('Error al obtener los empleados:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleSelectEmpleado = (empleado) => {
         // Si el empleado seleccionado ya es el actual, no hacer nada
@@ -49,20 +51,87 @@ function SolicitudesAdmin() {
 
 
     const handleReject = () => {
-        setVisible(true); // Muestra la caja de motivo de rechazo
+        setVisible(!visible); // Muestra o oculta la caja de motivo de rechazo
     };
 
-    const handleConfirmReject = () => {
-        setVisible(false); // Cierra la caja de motivo de rechazo
+    const handleConfirmReject = async () => {
+        if (!descripMotivoRechazo) {
+            alert('Por favor, proporciona una descripción para el rechazo.');
+            return;
+        }
+
+        // Confirmar antes de rechazar la solicitud
+        const confirmRejection = window.confirm('¿Estás seguro de que deseas rechazar esta solicitud?');
+        if (!confirmRejection) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`https://gestiondevacaciones-api-production.up.railway.app/api/admin/vacaciones/${selectEmpleado.vacacion_id}/estado`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    estado: 'Rechazado',
+                    descripcion_rechazo: descripMotivoRechazo,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Hubo un problema al rechazar la solicitud. Intenta nuevamente.');
+            }
+
+            // Limpiar los estados
+            setDescripMotivoRechazo('');
+            setVisible(false);
+            fetchEmpleados();
+
+            alert('La solicitud de vacaciones ha sido rechazada correctamente.');
+        } catch (error) {
+            alert(`Error: ${error.message}`);
+        }
     };
+
+
+
 
     const handleConfir = () => {
-        setVisibleSi(true); // Muestra la caja de confirmar
+        setVisibleSi(!visibleSi); // Muestra la caja de confirmar
     };
 
-    const handleConfirConfir = () => {
-        setVisibleSi(false); // Cierra la caja de motivo de confirmar
+    const handleConfirConfir = async () => {
+        // Confirmar antes de aprobar la solicitud
+        const confirmApproval = window.confirm('¿Estás seguro de que deseas aprobar esta solicitud?');
+        if (!confirmApproval) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`https://gestiondevacaciones-api-production.up.railway.app/api/admin/vacaciones/${selectEmpleado.vacacion_id}/estado`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    estado: 'Aprobado',
+                    descripcion_rechazo: null,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Hubo un problema al aprobar la solicitud. Intenta nuevamente.');
+            }
+
+            setVisibleSi(false);
+            fetchEmpleados();
+
+            alert('La solicitud de vacaciones ha sido aprobada correctamente.');
+        } catch (error) {
+            alert(`Error: ${error.message}`);
+        }
     };
+
 
     return (
         <div className="d-flex justify-content-center gap-5 mt-5 mx-5">
@@ -114,17 +183,24 @@ function SolicitudesAdmin() {
                 )}
             </div>
 
-            {/* Cuadro de motivo */}
+            {/* Cuadro de motivo rechazo */}
             {visible && (
                 <div className="blur-background">
                     <div className="caja-rechazado px-5 d-flex flex-column text-light text-center p-3">
                         <div className="mb-3">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label fs-2 mt-3">Motivo de rechazo</label>
                             <hr />
-                            <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea
+                                className="form-control"
+                                id="exampleFormControlTextarea1"
+                                rows="3"
+                                value={descripMotivoRechazo} // Asigna el valor de la variable
+                                onChange={(e) => setDescripMotivoRechazo(e.target.value)} // Actualiza la variable cuando cambia el texto
+                            ></textarea>
+
                             <div className='d-flex justify-content-center'>
                                 <Boton tipo="success" texto="Confirmar" tamanio="50" onClick={handleConfirmReject} />
-                                <Boton tipo="danger" texto="Cancelar" tamanio="50" onClick={handleConfirmReject} />
+                                <Boton tipo="danger" texto="Cancelar" tamanio="50" onClick={handleReject} />
                             </div>
                         </div>
                     </div>
@@ -140,7 +216,7 @@ function SolicitudesAdmin() {
                             <p>Seguro que quiere confimar la solicitud de {selectEmpleado.nombres} {selectEmpleado.apellidos}</p>
                             <div className='d-flex justify-content-center'>
                                 <Boton tipo="success" texto="Si" tamanio="25" onClick={handleConfirConfir} />
-                                <Boton tipo="danger" texto="No" tamanio="25" onClick={handleConfirConfir} />
+                                <Boton tipo="danger" texto="No" tamanio="25" onClick={handleConfir} />
                             </div>
                         </div>
                     </div>
