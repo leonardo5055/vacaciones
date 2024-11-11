@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-import 'moment/locale/es'; // Importa el idioma español para moment
+import 'moment/locale/es';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import '../css/Calendario.css'; // Asegúrate de incluir tu archivo de estilos aquí
 
-// Configura moment en español
 moment.locale('es');
-
 const localizer = momentLocalizer(moment);
 
 const messages = {
@@ -25,62 +23,70 @@ const messages = {
     noEventsInRange: 'No hay eventos en este rango.'
 };
 
-let empleado = JSON.parse(localStorage.getItem('EmpleadoInfo')); // Obtén la información del empleado
+let empleado = JSON.parse(localStorage.getItem('EmpleadoInfo'));
 console.log(empleado);
 
 function Calendario() {
     const [myEvents, setMyEvents] = useState([]);
     const [currentDate, setCurrentDate] = useState(new Date());
+    const [selectedEvent, setSelectedEvent] = useState(null); // Estado para el evento seleccionado
 
     useEffect(() => {
-        // Función para obtener las vacaciones
         const fetchVacaciones = async () => {
             try {
                 const response = await fetch('https://gestiondevacaciones-api-production.up.railway.app/api/vacaciones');
+
+                if (!response.ok) {
+                    throw new Error('Error al obtener los datos de vacaciones');
+                }
+
                 const data = await response.json();
 
-                // Filtrar las vacaciones por empleado_id
-                const vacacionesEmpleado = data.filter(vacacion => vacacion.empleado_id === empleado.empleado_id);
+                const eventosVacaciones = data
+                    .filter(vacacion => vacacion.empleado_id === empleado.empleado_id) // Filtra por el empleado
+                    .map(vacacion => {
+                        const [diaInicio, mesInicio, anioInicio] = vacacion.fecha_inicio.split('/');
+                        const [diaFin, mesFin, anioFin] = vacacion.fecha_fin.split('/');
+                        console.log("Fecha Inicia")
+                        console.log(parseInt(diaInicio), " ", mesInicio, " ", anioInicio);
+                        console.log("Fecha Fin")
+                        console.log(parseInt(diaFin), " ", mesFin, " ", anioFin)
 
-                // Transformar las vacaciones en eventos del calendario
-                const eventosVacaciones = vacacionesEmpleado.map(vacacion => {
-                    // Convertir las fechas de inicio y fin a objetos Date con año, mes, día, hora, minuto
-                    const fechaInicio = new Date(vacacion.fecha_inicio);
-                    const fechaFin = new Date(vacacion.fecha_fin);
+                        return {
+                            title: `${vacacion.motivo_vacaciones} - ${vacacion.estado}`,
+                            start: new Date(anioInicio, mesInicio - 1, parseInt(diaInicio)), // mesInicio - 1 para ajustar a Date
+                            end: new Date(anioFin, mesFin - 1, parseInt(diaFin) + 1),
+                            fecha_inicio: vacacion.fecha_inicio,
+                            fecha_fin: vacacion.fecha_fin,
+                            allDay: true,
+                            description: vacacion.descripcion || "Sin descripción", // Descripción de la vacación
+                            estado: vacacion.estado, // Estado de la vacación
+                            motivoRechazo: vacacion.motivo_rechazo_id, // Motivo de rechazo si existe
+                        };
+                    });
 
-                    console.log(fechaInicio)
-
-                    return {
-                        title: 'Vacaciones', // Título fijo como 'Vacaciones'
-                        start: new Date(
-                            fechaInicio.getFullYear(),
-                            fechaInicio.getMonth(),
-                            fechaInicio.getDate() + 1,
-                            fechaInicio.getHours(),
-                            fechaInicio.getMinutes(),
-                            fechaInicio.getSeconds()
-                        ), // Desglose de la fecha inicio
-                        end: new Date(
-                            fechaFin.getFullYear(),
-                            fechaFin.getMonth(),
-                            fechaFin.getDate() + 1,
-                            fechaFin.getHours(),
-                            fechaFin.getMinutes(),
-                            fechaFin.getSeconds()
-                        ), // Desglose de la fecha fin
-                        allDay: false, // Puedes ajustar esto si no es un evento de todo el día
-                    };
-                });
-
-
-                setMyEvents(eventosVacaciones); // Actualizar los eventos
+                setMyEvents(eventosVacaciones);
             } catch (error) {
-                alert('Error al obtener las vacaciones:', error);
+                console.error('Error al obtener las vacaciones:', error);
+                alert(`Error al obtener las vacaciones: ${error.message}`);
             }
         };
 
-        fetchVacaciones(); // Llamar a la función para obtener los datos
-    }, []); // Ejecutar solo una vez al montar el componente
+        fetchVacaciones();
+    }, []);
+
+
+    // Función para determinar el estilo de cada evento según su estado
+    const eventPropGetter = (event) => {
+        let cajaClase = ''; // Clase por defecto
+
+        if (event.estado === 'Aprobado') cajaClase = 'event-aprobado';
+        else if (event.estado === 'Pendiente') cajaClase = 'event-pendiente';
+        else if (event.estado === 'Rechazado') cajaClase = 'event-rechazado';
+
+        return { className: cajaClase };
+    };
+
 
     return (
         <div className="text-light mx-5">
@@ -90,14 +96,36 @@ function Calendario() {
                     localizer={localizer}
                     events={myEvents}
                     messages={messages}
-                    views={['month']} // Solo muestra la vista mensual
-                    date={currentDate} // Controla la fecha actual
-                    onNavigate={(newDate) => setCurrentDate(newDate)} // Permite la navegación entre meses y años
+                    views={['month']}
+                    date={currentDate}
+                    onNavigate={(newDate) => setCurrentDate(newDate)}
                     startAccessor="start"
                     endAccessor="end"
                     style={{ height: 700, width: 1500 }}
+                    eventPropGetter={eventPropGetter}
+                    onSelectEvent={(event) => setSelectedEvent(event)}
+                    popup // Activar el popup para eventos adicionales
                 />
+
             </div>
+
+            {/* Modal para mostrar detalles del evento */}
+            {selectedEvent && (
+                <div className="event-details-modal" onClick={() => setSelectedEvent(null)}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <h2>{selectedEvent.title}</h2>
+                        <p><strong>Fecha Inicio:</strong> {selectedEvent.fecha_inicio}</p>
+                        <p><strong>Fecha Fin:</strong> {selectedEvent.fecha_fin}</p>
+                        <p><strong>Descripción:</strong> {selectedEvent.description}</p>
+                        <p><strong>Estado:</strong> {selectedEvent.estado}</p>
+                        {selectedEvent.estado === 'Rechazado' && (
+                            <p><strong>Motivo de Rechazo:</strong> {selectedEvent.motivoRechazo}</p>
+                        )}
+                        <button onClick={() => setSelectedEvent(null)}>Cerrar</button>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 }
