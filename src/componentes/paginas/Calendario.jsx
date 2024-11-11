@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
+import Boton from '../Componentes/Boton'
 import moment from 'moment';
 import 'moment/locale/es';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -47,21 +48,17 @@ function Calendario() {
                     .map(vacacion => {
                         const [diaInicio, mesInicio, anioInicio] = vacacion.fecha_inicio.split('/');
                         const [diaFin, mesFin, anioFin] = vacacion.fecha_fin.split('/');
-                        console.log("Fecha Inicia")
-                        console.log(parseInt(diaInicio), " ", mesInicio, " ", anioInicio);
-                        console.log("Fecha Fin")
-                        console.log(parseInt(diaFin), " ", mesFin, " ", anioFin)
 
                         return {
                             title: `${vacacion.motivo_vacaciones} - ${vacacion.estado}`,
-                            start: new Date(anioInicio, mesInicio - 1, parseInt(diaInicio)), // mesInicio - 1 para ajustar a Date
+                            start: new Date(anioInicio, mesInicio - 1, parseInt(diaInicio)),
                             end: new Date(anioFin, mesFin - 1, parseInt(diaFin) + 1),
                             fecha_inicio: vacacion.fecha_inicio,
                             fecha_fin: vacacion.fecha_fin,
                             allDay: true,
-                            description: vacacion.descripcion || "Sin descripción", // Descripción de la vacación
-                            estado: vacacion.estado, // Estado de la vacación
-                            motivoRechazo: vacacion.motivo_rechazo_id, // Motivo de rechazo si existe
+                            description: vacacion.descripcion || "Sin descripción",
+                            estado: vacacion.estado,
+                            motivoRechazo: vacacion.motivo_rechazo_id,
                         };
                     });
 
@@ -87,6 +84,21 @@ function Calendario() {
         return { className: cajaClase };
     };
 
+    // Función para obtener la clase de modal según el estado del evento
+    const ModalClass = () => {
+
+        if (selectedEvent.estado === 'Aprobado') {
+            return 'modal-content-aprobado';
+        }
+        if (selectedEvent.estado === 'Pendiente') {
+            return 'modal-content-pendiente';
+        }
+        if (selectedEvent.estado === 'Rechazado') {
+            return 'modal-content-rechazado';
+        }
+
+        return '';
+    };
 
     return (
         <div className="text-light mx-5">
@@ -106,26 +118,28 @@ function Calendario() {
                     onSelectEvent={(event) => setSelectedEvent(event)}
                     popup // Activar el popup para eventos adicionales
                 />
-
             </div>
 
             {/* Modal para mostrar detalles del evento */}
             {selectedEvent && (
                 <div className="event-details-modal" onClick={() => setSelectedEvent(null)}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                    <div className={`modal-content ${ModalClass()}`} onClick={(e) => e.stopPropagation()}>
                         <h2>{selectedEvent.title}</h2>
-                        <p><strong>Fecha Inicio:</strong> {selectedEvent.fecha_inicio}</p>
-                        <p><strong>Fecha Fin:</strong> {selectedEvent.fecha_fin}</p>
-                        <p><strong>Descripción:</strong> {selectedEvent.description}</p>
+                        <div className='d-flex justify-content-start flex-column'>
+                            <p><strong>Fecha Inicio:</strong> {selectedEvent.fecha_inicio}</p>
+                            <p><strong>Fecha Fin:</strong> {selectedEvent.fecha_fin}</p>
+                        </div>
+                        <div className='d-flex justify-content-end'>
+                            <p><strong>Descripción:</strong> {selectedEvent.description}</p>
+                        </div>
                         <p><strong>Estado:</strong> {selectedEvent.estado}</p>
                         {selectedEvent.estado === 'Rechazado' && (
                             <p><strong>Motivo de Rechazo:</strong> {selectedEvent.motivoRechazo}</p>
                         )}
-                        <button onClick={() => setSelectedEvent(null)}>Cerrar</button>
+                        <Boton tamanio="100" texto="Cerrar" tipo="primary" onClick={() => setSelectedEvent(null)}></Boton>
                     </div>
                 </div>
             )}
-
         </div>
     );
 }

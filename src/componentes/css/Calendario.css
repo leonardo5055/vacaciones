@@ -22,7 +22,7 @@
 }
 
 .rbc-toolbar button {
-  color: white !important;
+  color: var(--blanco) !important;
 }
 
 .rbc-toolbar button:hover {
@@ -30,7 +30,7 @@
 }
 
 .rbc-btn-group {
-  color: black;
+  color: var(--negro);
 }
 
 .rbc-toolbar button:active {
@@ -59,27 +59,43 @@
 }
 
 .modal-content {
-  background: #fff;
+  background: var(--blanco);
   padding: 20px;
   border-radius: 5px;
   width: fit-content;
   text-align: center;
-  color: black;
+  color: var(--negro);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   /* Sombras para dar profundidad */
 }
 
 .event-aprobado {
-  background-color: green;
-  color: white;
+  background-color: var(--verde);
+  color: var(--blanco);
 }
 
 .event-pendiente {
-  background-color: yellow;
-  color: black;
+  background-color: var(--amarillo);
+  color: var(--negro);
 }
 
 .event-rechazado {
-  background-color: red;
-  color: white;
+  background-color: var(--rojo);
+  color: var(--blanco);
+}
+
+.modal-content-aprobado{
+  background-color: var(--verde-ts);
+  border: solid 3px var(--verde);
+  color: var(--blanco);
+}
+.modal-content-pendiente{
+  background-color: var(--amarillo-ts);
+  border: solid 3px var(--amarillo);
+  color: var(--blanco);
+}
+.modal-content-rechazado{
+  background-color: var(--rojo-ts);
+  border: solid 3px var(--rojo);
+  color: var(--blanco);
 }
