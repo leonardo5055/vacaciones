@@ -62,6 +62,7 @@ function Calendario() {
                             description: vacacion.descripcion || "Sin descripción", // Descripción de la vacación
                             estado: vacacion.estado, // Estado de la vacación
                             motivoRechazo: vacacion.motivo_rechazo_id, // Motivo de rechazo si existe
+                            descripcion_rechazo: vacacion.descripcion_rechazo
                         };
                     });
 
@@ -119,7 +120,7 @@ function Calendario() {
                         <p><strong>Descripción:</strong> {selectedEvent.description}</p>
                         <p><strong>Estado:</strong> {selectedEvent.estado}</p>
                         {selectedEvent.estado === 'Rechazado' && (
-                            <p><strong>Motivo de Rechazo:</strong> {selectedEvent.motivoRechazo}</p>
+                            <p><strong>Motivo de Rechazo:</strong> {selectedEvent.descripcion_rechazo}</p>
                         )}
                         <button onClick={() => setSelectedEvent(null)}>Cerrar</button>
                     </div>
