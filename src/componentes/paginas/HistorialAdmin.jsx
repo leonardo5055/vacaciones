@@ -16,22 +16,21 @@ function HistorialAdmin() {
                     throw new Error('Error en la red');
                 }
                 const data = await response.json();
-                setEmpleados(data); // Guarda los empleados en el estado
+                setEmpleados(data);
             } catch (error) {
                 console.error('Error al obtener los empleados:', error);
             } finally {
-                setLoading(false); // Cambia el estado de carga
+                setLoading(false);
             }
         };
 
         fetchEmpleados();
     }, []);
 
-    // Extrae cargos únicos y motivos únicos
     const cargosUnicos = [...new Set(empleados.map(empleado => empleado.cargo))].filter(cargo => cargo);
     const motivosUnicos = [...new Set(empleados.map(empleado => empleado.motivo_vacaciones))].filter(motivo => motivo);
 
-    // Filtra empleados según el término de búsqueda, cargo y motivo
+    // Filtro
     const empleadosFiltrados = empleados.filter(empleado => {
         const nombreCompleto = `${empleado.nombre_empleado} ${empleado.apellido_empleado}`.toLowerCase();
         const coincideNombre = nombreCompleto.includes(searchTerm.toLowerCase());
@@ -56,7 +55,7 @@ function HistorialAdmin() {
                         placeholder="Buscar"
                         aria-label="Buscar"
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)} // Actualiza el término de búsqueda
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
             </div>
@@ -100,7 +99,7 @@ function HistorialAdmin() {
                             className="form-select form-select-lg mb-3"
                             aria-label="Large select example"
                             value={cargoFiltro}
-                            onChange={(e) => setCargoFiltro(e.target.value)} // Actualiza el filtro de cargo
+                            onChange={(e) => setCargoFiltro(e.target.value)}
                         >
                             <option value="">Cargo</option>
                             {cargosUnicos.map((cargo, index) => (
@@ -114,7 +113,7 @@ function HistorialAdmin() {
                             className="form-select form-select-lg mb-3"
                             aria-label="Large select example"
                             value={motivoFiltro}
-                            onChange={(e) => setMotivoFiltro(e.target.value)} // Actualiza el filtro de motivo
+                            onChange={(e) => setMotivoFiltro(e.target.value)}
                         >
                             <option value="">Motivo</option>
                             {motivosUnicos.map((motivo, index) => (

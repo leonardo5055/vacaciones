@@ -12,8 +12,7 @@ const Perfil = lazy(() => import('../componentes/paginas/Perfil'));
 const Calendario = lazy(() => import('../componentes/paginas/Calendario'));
 const SolicitudesAdmin = lazy(() => import('../componentes/paginas/SolicitudesAdmin'));
 const HistorialAdmin = lazy(() => import('../componentes/paginas/HistorialAdmin'));
-const CrearUsuarios = lazy(() => import ('../componentes/paginas/CrearUsuarios'));
-const DatosPersonales = lazy(() => import ('../componentes/paginas/DatosPersonales'));
+const CrearUsuarios = lazy(() => import('../componentes/paginas/CrearUsuarios'));
 
 const isAuthenticated = () => {
     const token = localStorage.getItem('Token');
@@ -62,10 +61,6 @@ const routes = [
             {
                 path: 'crear-usuario',
                 element: <PrivateRoute isAuthenticated={isAuthenticated} element={<CrearUsuarios />} />
-            },
-            {
-                path: 'datos-personales',
-                element: <PrivateRoute isAuthenticated={isAuthenticated} element={<DatosPersonales />} />
             },
         ],
     },
