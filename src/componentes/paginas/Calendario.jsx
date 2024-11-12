@@ -127,16 +127,15 @@ function Calendario() {
             {/* Modal para mostrar detalles del evento */}
             {selectedEvent && (
                 <div className="event-details-modal" onClick={() => setSelectedEvent(null)}>
-                    <div className={`modal-content ${ModalClass()}`} onClick={(e) => e.stopPropagation()}>
+                    <div className={`modal-content w-25 ${ModalClass()}`} onClick={(e) => e.stopPropagation()}>
                         <h2>{selectedEvent.title}</h2>
-                        <div className='d-flex justify-content-start flex-column'>
-                            <p><strong>Fecha Inicio:</strong> {selectedEvent.fecha_inicio}</p>
-                            <p><strong>Fecha Fin:</strong> {selectedEvent.fecha_fin}</p>
+                        <div className='d-flex justify-content-center gap-3'>
+                            <p><strong>Fecha Inicio: </strong> {selectedEvent.fecha_inicio}</p>
+                            <p><strong>Fecha Fin: </strong> {selectedEvent.fecha_fin}</p>
                         </div>
-                        <div className='d-flex justify-content-end'>
+                        <div className='d-flex justify-content-center'>
                             <p><strong>Descripción:</strong> {selectedEvent.description}</p>
                         </div>
-                        <p><strong>Estado:</strong> {selectedEvent.estado}</p>
                         {selectedEvent.estado === 'Rechazado' && (
                             <p><strong>Motivo de Rechazo:</strong> {selectedEvent.descripcion_rechazo}</p>
                         )}
