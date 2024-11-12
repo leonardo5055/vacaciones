@@ -11,7 +11,7 @@ function HistorialAdmin() {
     useEffect(() => {
         const fetchEmpleados = async () => {
             try {
-                const response = await fetch('http://localhost:40588/api/vacaciones');
+                const response = await fetch('https://gestiondevacaciones-api-production.up.railway.app/api/vacaciones');
                 if (!response.ok) {
                     throw new Error('Error en la red');
                 }
