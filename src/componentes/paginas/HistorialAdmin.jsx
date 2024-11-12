@@ -4,34 +4,29 @@ import Cargando from '../Cargando/Cargando';
 function HistorialAdmin() {
     const [empleados, setEmpleados] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
-    const [cargoFiltro, setCargoFiltro] = useState(''); // Estado para el filtro de cargo
-    const [motivoFiltro, setMotivoFiltro] = useState(''); // Estado para el filtro de motivo
+    const [searchTerm, setSearchTerm] = useState('');
+    const [cargoFiltro, setCargoFiltro] = useState('');
+    const [motivoFiltro, setMotivoFiltro] = useState('');
+    const [selectEmpleado, setSelectEmpleado] = useState(null);
 
     useEffect(() => {
         const fetchEmpleados = async () => {
             try {
                 const response = await fetch('https://gestiondevacaciones-api-production.up.railway.app/api/vacaciones');
-                if (!response.ok) {
-                    throw new Error('Error en la red');
-                }
                 const data = await response.json();
-                setEmpleados(data); // Guarda los empleados en el estado
+                setEmpleados(data);
             } catch (error) {
                 console.error('Error al obtener los empleados:', error);
             } finally {
-                setLoading(false); // Cambia el estado de carga
+                setLoading(false);
             }
         };
-
         fetchEmpleados();
     }, []);
 
-    // Extrae cargos únicos y motivos únicos
-    const cargosUnicos = [...new Set(empleados.map(empleado => empleado.cargo))].filter(cargo => cargo);
-    const motivosUnicos = [...new Set(empleados.map(empleado => empleado.motivo_vacaciones))].filter(motivo => motivo);
+    const cargosUnicos = [...new Set(empleados.map(empleado => empleado.cargo))];
+    const motivosUnicos = [...new Set(empleados.map(empleado => empleado.motivo_vacaciones))];
 
-    // Filtra empleados según el término de búsqueda, cargo y motivo
     const empleadosFiltrados = empleados.filter(empleado => {
         const nombreCompleto = `${empleado.nombre_empleado} ${empleado.apellido_empleado}`.toLowerCase();
         const coincideNombre = nombreCompleto.includes(searchTerm.toLowerCase());
@@ -40,6 +35,14 @@ function HistorialAdmin() {
 
         return coincideNombre && coincideCargo && coincideMotivo;
     });
+
+    const handleSelectEmpleado = (empleado) => {
+        if (selectEmpleado && selectEmpleado.vacacion_id === empleado.vacacion_id) {
+            setSelectEmpleado(null); // Deselecciona si ya está seleccionado
+        } else {
+            setSelectEmpleado(empleado); // Selecciona el empleado
+        }
+    };
 
     return (
         <div>
@@ -54,16 +57,16 @@ function HistorialAdmin() {
                         className="form-control border-start-0"
                         type="search"
                         placeholder="Buscar"
-                        aria-label="Buscar"
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)} // Actualiza el término de búsqueda
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
             </div>
 
+            {/*Caja historial  */}
             <div className='d-flex justify-content-center gap-5 mt-5'>
-                <div className='caja-negra text-light text-center fs-4 w-50'>
-                    <h2 className='m-3 d-flex'>Historial</h2>
+                <div className='caja-negra text-light text-center fs-4 w-50' style={{ maxHeight: '600px', overflowY: 'auto' }}>
+                    <h2 className='m-3'>Historial</h2>
                     <hr />
                     {loading ? (
                         <div className='d-flex justify-content-center align-items-center'>
@@ -71,20 +74,22 @@ function HistorialAdmin() {
                         </div>
                     ) : (
                         empleadosFiltrados.map((empleado) => (
-                            <div key={empleado.vacacion_id}>
-                                <div className='d-flex align-items-center m-3 gap-3'>
-                                    <img
-                                        src={empleado.avatar}
-                                        className="rounded-circle"
-                                        width={60}
-                                        alt={`${empleado.nombre_empleado} ${empleado.apellido_empleado}`}
-                                    />
-                                    <p>{empleado.nombre_empleado} {empleado.apellido_empleado} </p>
-                                    <p>{empleado.fecha_inicio} - {empleado.fecha_fin}</p>
-                                    <div>
-                                        <span className="circulo-vacaciones me-2"></span>
-                                        <span className="text-light text-truncate" style={{ maxWidth: '180px' }}>{empleado.motivo_vacaciones}</span>
-                                    </div>
+                            <div
+                                key={empleado.vacacion_id}
+                                className={`d-flex align-items-center m-3 gap-3 ${selectEmpleado?.vacacion_id === empleado.vacacion_id ? 'borde-seleccion' : ''}`}
+                                onClick={() => handleSelectEmpleado(empleado)}
+                            >
+                                <img
+                                    src={empleado.avatar}
+                                    className="rounded-circle"
+                                    width={60}
+                                    alt={`${empleado.nombre_empleado} ${empleado.apellido_empleado}`}
+                                />
+                                <p>{empleado.nombre_empleado} {empleado.apellido_empleado} </p>
+                                <p>{empleado.fecha_inicio} - {empleado.fecha_fin}</p>
+                                <div>
+                                    <span className="circulo-vacaciones me-2"></span>
+                                    <span className="text-light text-truncate" style={{ maxWidth: '180px' }}>{empleado.motivo_vacaciones}</span>
                                 </div>
                                 <hr />
                             </div>
@@ -92,15 +97,52 @@ function HistorialAdmin() {
                     )}
                 </div>
 
+                {/*Caja detalles  */}
+                {selectEmpleado && (
+                    <div className="caja-negra text-light fs-4 p-4">
+                        <h2 className='text-center'>Detalles</h2>
+                        <hr />
+                        <div>
+                            <div className="d-flex align-items-center m-3">
+                                <img src={selectEmpleado.avatar} className="rounded-circle" width={60} alt={selectEmpleado.nombre_empleado} />
+                                <p className="m-3">{selectEmpleado.nombre_empleado} {selectEmpleado.apellido_empleado} - {selectEmpleado.cargo}</p>
+                            </div>
+                            <div className='d-flex align-items-center gap-2'>
+                                <span className="circulo-vacaciones"></span>
+                                <p>{selectEmpleado.motivo_vacaciones}</p>
+                                <p>{selectEmpleado.fecha_inicio} - {selectEmpleado.fecha_fin}</p>
+                            </div>
+                            <div className="text-light mt-3">
+                                <p>Descripción:</p>
+                                <p className='ms-3'>{selectEmpleado.descripcion}</p>
+                            </div>
+                            <div className='mt-3'>
+                                {selectEmpleado.estado === 'Rechazado' && (
+                                    <div>
+                                        <p>El estado de la solicitud es <strong className='bg-danger text-black'>{selectEmpleado.estado}</strong></p>
+                                        <div className="text-light mt-3">
+                                            <p>Motivo de rechazo:</p>
+                                            <p className='ms-3'>{selectEmpleado.descripcion_rechazo}</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {selectEmpleado.estado === 'Aprobado' && (
+                                    <p>El estado de la solicitud es <strong className='bg-success text-black'>{selectEmpleado.estado}</strong></p>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/*Caja filtros  */}
                 <div className='caja-negra text-light fs-4'>
-                    <h1>Filtros</h1>
+                    <h1 className='m-3'>Filtros</h1>
                     <hr />
                     <div className='m-3'>
                         <select
                             className="form-select form-select-lg mb-3"
-                            aria-label="Large select example"
                             value={cargoFiltro}
-                            onChange={(e) => setCargoFiltro(e.target.value)} // Actualiza el filtro de cargo
+                            onChange={(e) => setCargoFiltro(e.target.value)}
                         >
                             <option value="">Cargo</option>
                             {cargosUnicos.map((cargo, index) => (
@@ -112,9 +154,8 @@ function HistorialAdmin() {
                     <div className='m-3'>
                         <select
                             className="form-select form-select-lg mb-3"
-                            aria-label="Large select example"
                             value={motivoFiltro}
-                            onChange={(e) => setMotivoFiltro(e.target.value)} // Actualiza el filtro de motivo
+                            onChange={(e) => setMotivoFiltro(e.target.value)}
                         >
                             <option value="">Motivo</option>
                             {motivosUnicos.map((motivo, index) => (
