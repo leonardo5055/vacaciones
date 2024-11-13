@@ -83,22 +83,24 @@ function HistorialAdmin() {
                         </div>
                     ) : (
                         empleadosFiltrados.map((empleado) => (
-                            <div
-                                key={empleado.vacacion_id}
-                                className={`d-flex align-items-center m-3 gap-3 ${selectEmpleado?.vacacion_id === empleado.vacacion_id ? 'borde-seleccion' : ''}`}
-                                onClick={() => handleSelectEmpleado(empleado)}
-                            >
-                                <img
-                                    src={avatarEmpleado(`./${empleado.avatar}`)}
-                                    className="rounded-circle"
-                                    width={60}
-                                    alt={`${empleado.nombre_empleado} ${empleado.apellido_empleado}`}
-                                />
-                                <p>{empleado.nombre_empleado} {empleado.apellido_empleado} </p>
-                                <p>{empleado.fecha_inicio} - {empleado.fecha_fin}</p>
-                                <div>
-                                    <span className="circulo-vacaciones me-2"></span>
-                                    <span className="text-light text-truncate" style={{ maxWidth: '180px' }}>{empleado.motivo_vacaciones}</span>
+                            <div>
+                                <div
+                                    key={empleado.vacacion_id}
+                                    className={`d-flex align-items-center m-3 gap-3 ${selectEmpleado?.vacacion_id === empleado.vacacion_id ? 'borde-seleccion' : ''}`}
+                                    onClick={() => handleSelectEmpleado(empleado)}
+                                >
+                                    <img
+                                        src={avatarEmpleado(`./${empleado.avatar}`)}
+                                        className="rounded-circle"
+                                        width={60}
+                                        alt={`${empleado.nombre_empleado} ${empleado.apellido_empleado}`}
+                                    />
+                                    <p>{empleado.nombre_empleado} {empleado.apellido_empleado} </p>
+                                    <p>{empleado.fecha_inicio} - {empleado.fecha_fin}</p>
+                                    <div>
+                                        <span className="circulo-vacaciones me-2"></span>
+                                        <span className="text-light text-truncate" style={{ maxWidth: '180px' }}>{empleado.motivo_vacaciones}</span>
+                                    </div>
                                 </div>
                                 <hr />
                             </div>

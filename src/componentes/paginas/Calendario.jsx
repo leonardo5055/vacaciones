@@ -59,9 +59,6 @@ function Calendario() {
                             description: vacacion.descripcion || "Sin descripción",
                             estado: vacacion.estado,
                             motivoRechazo: vacacion.motivo_rechazo_id,
-                            description: vacacion.descripcion || "Sin descripción", // Descripción de la vacación
-                            estado: vacacion.estado, // Estado de la vacación
-                            motivoRechazo: vacacion.motivo_rechazo_id, // Motivo de rechazo si existe
                             descripcion_rechazo: vacacion.descripcion_rechazo
                         };
                     });
