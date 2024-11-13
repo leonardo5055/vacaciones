@@ -9,15 +9,13 @@ function CrearUsuarios() {
         fechaContratacion: '',
         telefono: '',
         cargo: '',
+        rol: '',
         email: '',
         contraseña: '',
         confirmarContraseña: ''
     });
 
-    // Estado para los mensajes de error
     const [errors, setErrors] = useState({});
-
-    // Estado para los cargos
     const [cargos, setCargos] = useState([]);
 
     // Manejar el cambio de input
@@ -35,6 +33,7 @@ function CrearUsuarios() {
         if (!formData.fechaContratacion) tempErrors.fechaContratacion = "La fecha de contratación es obligatoria";
         if (!formData.telefono || formData.telefono.length < 10) tempErrors.telefono = "El teléfono debe tener al menos 10 caracteres";
         if (!formData.cargo) tempErrors.cargo = "El cargo es obligatorio";
+        if (!formData.rol) tempErrors.rol = "El rol es obligatorio";
         if (!formData.email) tempErrors.email = "El correo electrónico es obligatorio";
         if (!/\S+@\S+\.\S+/.test(formData.email)) tempErrors.email = "El correo electrónico no es válido";
         if (!formData.contraseña) tempErrors.contraseña = "La contraseña es obligatoria";
@@ -47,15 +46,52 @@ function CrearUsuarios() {
     // Manejar el envío del formulario
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (validateForm()) {
-            // Aquí iría el código para enviar el formulario (ej., hacer una llamada a la API)
-            console.log('Formulario válido, enviando datos...', formData);
+
+            // Hacer la solicitud POST
+            fetch("https://gestiondevacaciones-api-production.up.railway.app/api/empleados", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Error al crear el usuario.");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log("Usuario creado exitosamente:", data);
+                    // Limpiar el formulario o mostrar un mensaje de éxito si es necesario
+                    setFormData({
+                        nombre: '',
+                        apellido: '',
+                        fechaNacimiento: '',
+                        fechaContratacion: '',
+                        telefono: '',
+                        cargo: '',
+                        rol: '',
+                        email: '',
+                        contraseña: '',
+                        confirmarContraseña: ''
+                    });
+                    setErrors({});
+                })
+                .catch((error) => {
+                    alert("Error en la creación del usuario y Empleado:", error);
+                    setErrors({ apiError: "Error en la creación del usuario. Intente nuevamente." });
+                });
         }
     };
 
+
+
     // Obtener cargos desde la API
     useEffect(() => {
-        fetch("http://localhost:40588/api/cargo")
+        fetch("https://gestiondevacaciones-api-production.up.railway.app/api/cargo")
             .then((response) => response.json())
             .then((data) => {
                 setCargos(data);  // Asignar los cargos a los datos obtenidos
@@ -67,7 +103,6 @@ function CrearUsuarios() {
 
     return (
         <div className='d-flex flex-column justify-content-center align-items-center my-5'>
-            <img src="http://localhost:3000/img/avatar/foto-predeterminada.jpg" alt="" />
             <form className='w-50 text-light' onSubmit={handleSubmit}>
                 <h1 className='text-center text-decoration-underline mb-4'>Crear usuarios</h1>
                 <div className="form-floating mb-3">
@@ -147,7 +182,20 @@ function CrearUsuarios() {
                     <label>Cargo</label>
                     {errors.cargo && <div className="invalid-feedback">{errors.cargo}</div>}
                 </div>
-
+                <div className="form-floating mb-3">
+                    <select
+                        className={`form-select bg-transparent text-light ${errors.rol ? 'is-invalid' : ''}`}
+                        name="rol"
+                        value={formData.rol}
+                        onChange={handleChange}
+                    >
+                        <option className="text-dark" value="" disabled>Seleccionar Rol</option>
+                        <option className="text-dark" value="Empleado">Empleado</option>
+                        <option className="text-dark" value="Recursos Humanos">Recursos Humanos</option>
+                    </select>
+                    <label>Rol</label>
+                    {errors.rol && <div className="invalid-feedback">{errors.rol}</div>}
+                </div>
                 <div className="form-floating mb-3">
                     <input
                         type="email"

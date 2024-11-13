@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Cargando from '../Cargando/Cargando';
 
+const avatarEmpleado = require.context('../../img/avatar', true);
+
 function HistorialAdmin() {
     const [empleados, setEmpleados] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -70,7 +72,7 @@ function HistorialAdmin() {
                 </div>
             </div>
 
-            {/*Caja historial  */}
+            {/*Caja historial*/}
             <div className='d-flex justify-content-center gap-5 mt-5'>
                 <div className='caja-negra text-light text-center fs-4 w-50' style={{ maxHeight: '600px', overflowY: 'auto' }}>
                     <h2 className='m-3'>Historial</h2>
@@ -87,7 +89,7 @@ function HistorialAdmin() {
                                 onClick={() => handleSelectEmpleado(empleado)}
                             >
                                 <img
-                                    src={empleado.avatar}
+                                    src={avatarEmpleado(`./${empleado.avatar}`)}
                                     className="rounded-circle"
                                     width={60}
                                     alt={`${empleado.nombre_empleado} ${empleado.apellido_empleado}`}

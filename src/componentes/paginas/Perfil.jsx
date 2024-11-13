@@ -1,6 +1,8 @@
 import React from 'react'
 import Boton from '../Componentes/Boton';
 
+const avatarEmpleado = require.context('../../img/avatar', true);
+
 function Perfil() {
     let empleado = JSON.parse(localStorage.getItem('EmpleadoInfo'));
     console.log(empleado)
@@ -10,7 +12,7 @@ function Perfil() {
             <h1 className='text-light text-center mt-3'>Perfil</h1>
             <div className='d-flex justify-content-center gap-5 m-5'>
                 <div className='caja-negra text-light text-center fs-4'>
-                    <img src={empleado.avatar} className="rounded-circle" width={300} alt="" />
+                    <img src={avatarEmpleado(`./${empleado.avatar}`)} className="rounded-circle" width={300} alt="" />
                     <form className='m-5 fw-bold'>
                         <div className="collapse mt-3" id="contenidoAdicional">
                             <div className="mb-3">
@@ -23,11 +25,11 @@ function Perfil() {
                             </div>
                             <div class="mb-3">
                                 <label for="formFileMultiple" class="form-label">Imagen</label>
-                                <input class="form-control" type="file" id="imagen" accept=".jpg, .png" multiple/>
+                                <input class="form-control" type="file" id="imagen" accept=".jpg, .png" multiple />
                             </div>
                             <div className='d-flex justify-content-center'>
-                                <Boton tipo="primary" texto="Confirmar" tamanio="50"/>
-                                <Boton tipo="danger" texto="Cancelar" tamanio="50"/>
+                                <Boton tipo="primary" texto="Confirmar" tamanio="50" />
+                                <Boton tipo="danger" texto="Cancelar" tamanio="50" />
                             </div>
                         </div>
                     </form>

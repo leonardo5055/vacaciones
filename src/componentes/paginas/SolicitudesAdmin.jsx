@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Cargando from '../Cargando/Cargando';
 import Boton from '../Componentes/Boton';
 
+const avatarEmpleado = require.context('../../img/avatar', true);
+
 function SolicitudesAdmin() {
     const [empleados, setEmpleados] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -153,7 +155,7 @@ function SolicitudesAdmin() {
                             onClick={() => handleSelectEmpleado(empleado)}
                         >
                             <div className="col-auto">
-                                <img src={empleado.avatar} className="rounded-circle" width={60} alt={empleado.nombres} />
+                                <img src={avatarEmpleado(`./${empleado.avatar}`)} className="rounded-circle" width={60} alt={empleado.nombres} />
                             </div>
 
                             <div className="flex-grow-1 d-flex flex-column align-items-start ms-3">
@@ -230,7 +232,7 @@ function SolicitudesAdmin() {
                     <hr />
                     <div>
                         <div className="d-flex align-items-center m-3">
-                            <img src={selectEmpleado.avatar} className="rounded-circle" width={60} alt={selectEmpleado.nombres} />
+                            <img src={avatarEmpleado(`./${selectEmpleado.avatar}`)} className="rounded-circle" width={60} alt={selectEmpleado.nombres} />
                             <div className="d-flex flex-column">
                                 <p className="m-3">{selectEmpleado.nombres} {selectEmpleado.apellidos}</p>
                                 <div>

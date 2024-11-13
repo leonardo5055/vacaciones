@@ -4,6 +4,8 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Logo from '../../img/logo.jpg';
 import "../css/nav.css";
 
+const avatarEmpleado = require.context('../../img/avatar', true);
+
 function Nav() {
     const navigate = useNavigate();
 
@@ -75,7 +77,10 @@ function Nav() {
                                 <NavLink to="/historial-admin" className="dropdown-item" aria-label="historial-admin">Historial</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/crear-usuario" className="dropdown-item" aria-label="crear-usuario">Crear Usuario</NavLink>
+                                <NavLink to="/crear-usuario" className="dropdown-item" aria-label="crear-usuario">Crear Usuario y Empleados</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/empleados" className="dropdown-item" aria-label="crear-usuario">Empleados</NavLink>
                             </li>
                         </ul>
                     </li>
@@ -91,7 +96,7 @@ function Nav() {
                                     {empleadoInfo.nombres} {empleadoInfo.apellidos}
                                 </span>
                                 <img
-                                    src={empleadoInfo.avatar}
+                                    src={avatarEmpleado(`./${empleadoInfo.avatar}`)}
                                     alt='Icono de usuario'
                                     className="rounded-circle"
                                     width={50}
