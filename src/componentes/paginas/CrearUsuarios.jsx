@@ -3,20 +3,20 @@ import React, { useState, useEffect } from 'react';
 function CrearUsuarios() {
     // Estado para los campos del formulario
     const [formData, setFormData] = useState({
-        nombre: '',
-        apellido: '',
-        fechaNacimiento: '',
-        fechaContratacion: '',
-        telefono: '',
-        cargo: '',
+        nombres: '',
+        apellidos: '',
+        fecha_nacimiento: '',
+        fecha_contratacion: '',
+        celular: '',
+        cargo_id: '',
         rol: '',
         email: '',
-        contraseña: '',
-        confirmarContraseña: ''
+        password: '',
+        confirmarpassword: ''
     });
 
     const [errors, setErrors] = useState({});
-    const [cargos, setCargos] = useState([]);
+    const [cargos, setcargos] = useState([]);
 
     // Manejar el cambio de input
     const handleChange = (e) => {
@@ -27,17 +27,17 @@ function CrearUsuarios() {
     // Validación del formulario
     const validateForm = () => {
         let tempErrors = {};
-        if (!formData.nombre) tempErrors.nombre = "El nombre es obligatorio";
-        if (!formData.apellido) tempErrors.apellido = "El apellido es obligatorio";
-        if (!formData.fechaNacimiento) tempErrors.fechaNacimiento = "La fecha de nacimiento es obligatoria";
-        if (!formData.fechaContratacion) tempErrors.fechaContratacion = "La fecha de contratación es obligatoria";
-        if (!formData.telefono || formData.telefono.length < 10) tempErrors.telefono = "El teléfono debe tener al menos 10 caracteres";
-        if (!formData.cargo) tempErrors.cargo = "El cargo es obligatorio";
+        if (!formData.nombres) tempErrors.nombres = "El nombres es obligatorio";
+        if (!formData.apellidos) tempErrors.apellidos = "El apellidos es obligatorio";
+        if (!formData.fecha_nacimiento) tempErrors.fecha_nacimiento = "La fecha de nacimiento es obligatoria";
+        if (!formData.fecha_contratacion) tempErrors.fecha_contratacion = "La fecha de contratación es obligatoria";
+        if (!formData.celular || formData.celular.length < 10) tempErrors.celular = "El teléfono debe tener al menos 10 caracteres";
+        if (!formData.cargo_id) tempErrors.cargo_id = "El cargo_id es obligatorio";
         if (!formData.rol) tempErrors.rol = "El rol es obligatorio";
         if (!formData.email) tempErrors.email = "El correo electrónico es obligatorio";
         if (!/\S+@\S+\.\S+/.test(formData.email)) tempErrors.email = "El correo electrónico no es válido";
-        if (!formData.contraseña) tempErrors.contraseña = "La contraseña es obligatoria";
-        if (formData.contraseña !== formData.confirmarContraseña) tempErrors.confirmarContraseña = "Las contraseñas no coinciden";
+        if (!formData.password) tempErrors.password = "La password es obligatoria";
+        if (formData.password !== formData.confirmarpassword) tempErrors.confirmarpassword = "Las passwords no coinciden";
 
         setErrors(tempErrors);
         return Object.keys(tempErrors).length === 0;
@@ -48,7 +48,7 @@ function CrearUsuarios() {
         e.preventDefault();
 
         if (validateForm()) {
-
+            console.log(formData)
             // Hacer la solicitud POST
             fetch("https://gestiondevacaciones-api-production.up.railway.app/api/empleados", {
                 method: "POST",
@@ -67,16 +67,16 @@ function CrearUsuarios() {
                     console.log("Usuario creado exitosamente:", data);
                     // Limpiar el formulario o mostrar un mensaje de éxito si es necesario
                     setFormData({
-                        nombre: '',
-                        apellido: '',
-                        fechaNacimiento: '',
-                        fechaContratacion: '',
-                        telefono: '',
-                        cargo: '',
+                        nombres: '',
+                        apellidos: '',
+                        fecha_nacimiento: '',
+                        fecha_contratacion: '',
+                        celular: '',
+                        cargo_id: '',
                         rol: '',
                         email: '',
-                        contraseña: '',
-                        confirmarContraseña: ''
+                        password: '',
+                        confirmarpassword: ''
                     });
                     setErrors({});
                 })
@@ -89,15 +89,15 @@ function CrearUsuarios() {
 
 
 
-    // Obtener cargos desde la API
+    // Obtener cargo_ids desde la API
     useEffect(() => {
         fetch("https://gestiondevacaciones-api-production.up.railway.app/api/cargo")
             .then((response) => response.json())
             .then((data) => {
-                setCargos(data);  // Asignar los cargos a los datos obtenidos
+                setcargos(data);  // Asignar los cargo_ids a los datos obtenidos
             })
             .catch((error) => {
-                console.error("Error al cargar los cargos:", error);
+                console.error("Error al cargar los cargo_ids:", error);
             });
     }, []);
 
@@ -108,71 +108,71 @@ function CrearUsuarios() {
                 <div className="form-floating mb-3">
                     <input
                         type="text"
-                        className={`form-control text-light bg-transparent ${errors.nombre ? 'is-invalid' : ''}`}
-                        name="nombre"
-                        value={formData.nombre}
+                        className={`form-control text-light bg-transparent ${errors.nombres ? 'is-invalid' : ''}`}
+                        name="nombres"
+                        value={formData.nombres}
                         onChange={handleChange}
                     />
-                    <label>Nombre</label>
-                    {errors.nombre && <div className="invalid-feedback">{errors.nombre}</div>}
+                    <label>nombres</label>
+                    {errors.nombres && <div className="invalid-feedback">{errors.nombres}</div>}
                 </div>
 
                 <div className="form-floating mb-3">
                     <input
                         type="text"
-                        className={`form-control text-light bg-transparent ${errors.apellido ? 'is-invalid' : ''}`}
-                        name="apellido"
-                        value={formData.apellido}
+                        className={`form-control text-light bg-transparent ${errors.apellidos ? 'is-invalid' : ''}`}
+                        name="apellidos"
+                        value={formData.apellidos}
                         onChange={handleChange}
                     />
-                    <label>Apellido</label>
-                    {errors.apellido && <div className="invalid-feedback">{errors.apellido}</div>}
+                    <label>apellidos</label>
+                    {errors.apellidos && <div className="invalid-feedback">{errors.apellidos}</div>}
                 </div>
 
                 <div className="form-floating mb-3">
                     <input
                         type="date"
-                        className={`form-control text-light bg-transparent ${errors.fechaNacimiento ? 'is-invalid' : ''}`}
-                        name="fechaNacimiento"
-                        value={formData.fechaNacimiento}
+                        className={`form-control text-light bg-transparent ${errors.fecha_nacimiento ? 'is-invalid' : ''}`}
+                        name="fecha_nacimiento"
+                        value={formData.fecha_nacimiento}
                         onChange={handleChange}
                     />
                     <label>Fecha de nacimiento</label>
-                    {errors.fechaNacimiento && <div className="invalid-feedback">{errors.fechaNacimiento}</div>}
+                    {errors.fecha_nacimiento && <div className="invalid-feedback">{errors.fecha_nacimiento}</div>}
                 </div>
 
                 <div className="form-floating mb-3">
                     <input
                         type="date"
-                        className={`form-control bg-transparent text-light ${errors.fechaContratacion ? 'is-invalid' : ''}`}
-                        name="fechaContratacion"
-                        value={formData.fechaContratacion}
+                        className={`form-control bg-transparent text-light ${errors.fecha_contratacion ? 'is-invalid' : ''}`}
+                        name="fecha_contratacion"
+                        value={formData.fecha_contratacion}
                         onChange={handleChange}
                     />
                     <label>Fecha de contratación</label>
-                    {errors.fechaContratacion && <div className="invalid-feedback">{errors.fechaContratacion}</div>}
+                    {errors.fecha_contratacion && <div className="invalid-feedback">{errors.fecha_contratacion}</div>}
                 </div>
 
                 <div className="form-floating mb-3">
                     <input
                         type="number"
-                        className={`form-control bg-transparent text-light ${errors.telefono ? 'is-invalid' : ''}`}
-                        name="telefono"
-                        value={formData.telefono}
+                        className={`form-control bg-transparent text-light ${errors.celular ? 'is-invalid' : ''}`}
+                        name="celular"
+                        value={formData.celular}
                         onChange={handleChange}
                     />
-                    <label>Teléfono</label>
-                    {errors.telefono && <div className="invalid-feedback">{errors.telefono}</div>}
+                    <label>Teléfono Celular</label>
+                    {errors.celular && <div className="invalid-feedback">{errors.celular}</div>}
                 </div>
 
                 <div className="form-floating mb-3">
                     <select
-                        className={`form-select bg-transparent text-light ${errors.cargo ? 'is-invalid' : ''}`}
-                        name="cargo"
-                        value={formData.cargo}
+                        className={`form-select bg-transparent text-light ${errors.cargo_id ? 'is-invalid' : ''}`}
+                        name="cargo_id"
+                        value={formData.cargo_id}
                         onChange={handleChange}
                     >
-                        <option className="text-dark" value="" disabled>Seleccionar Cargo</option>
+                        <option className="text-dark" value="">Seleccionar Cargo</option>
                         {cargos.map((cargo) => (
                             <option className="text-dark" key={cargo.cargo_id} value={cargo.cargo_id}>
                                 {cargo.cargo}
@@ -180,7 +180,7 @@ function CrearUsuarios() {
                         ))}
                     </select>
                     <label>Cargo</label>
-                    {errors.cargo && <div className="invalid-feedback">{errors.cargo}</div>}
+                    {errors.cargo_id && <div className="invalid-feedback">{errors.cargo_id}</div>}
                 </div>
                 <div className="form-floating mb-3">
                     <select
@@ -189,7 +189,7 @@ function CrearUsuarios() {
                         value={formData.rol}
                         onChange={handleChange}
                     >
-                        <option className="text-dark" value="" disabled>Seleccionar Rol</option>
+                        <option className="text-dark" value="" disabled>Seleccionar rol</option>
                         <option className="text-dark" value="Empleado">Empleado</option>
                         <option className="text-dark" value="Recursos Humanos">Recursos Humanos</option>
                     </select>
@@ -211,25 +211,25 @@ function CrearUsuarios() {
                 <div className="form-floating mb-3">
                     <input
                         type="password"
-                        className={`form-control bg-transparent text-light ${errors.contraseña ? 'is-invalid' : ''}`}
-                        name="contraseña"
-                        value={formData.contraseña}
+                        className={`form-control bg-transparent text-light ${errors.password ? 'is-invalid' : ''}`}
+                        name="password"
+                        value={formData.password}
                         onChange={handleChange}
                     />
                     <label>Contraseña</label>
-                    {errors.contraseña && <div className="invalid-feedback">{errors.contraseña}</div>}
+                    {errors.password && <div className="invalid-feedback">{errors.password}</div>}
                 </div>
 
                 <div className="form-floating mb-3">
                     <input
                         type="password"
-                        className={`form-control bg-transparent text-light ${errors.confirmarContraseña ? 'is-invalid' : ''}`}
-                        name="confirmarContraseña"
-                        value={formData.confirmarContraseña}
+                        className={`form-control bg-transparent text-light ${errors.confirmarpassword ? 'is-invalid' : ''}`}
+                        name="confirmarpassword"
+                        value={formData.confirmarpassword}
                         onChange={handleChange}
                     />
-                    <label>Confirmar Contraseña</label>
-                    {errors.confirmarContraseña && <div className="invalid-feedback">{errors.confirmarContraseña}</div>}
+                    <label>Confirmar password</label>
+                    {errors.confirmarpassword && <div className="invalid-feedback">{errors.confirmarpassword}</div>}
                 </div>
 
                 <button type="submit" className="btn btn-primary w-100">Enviar</button>
