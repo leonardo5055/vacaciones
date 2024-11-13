@@ -106,7 +106,7 @@ function Calendario() {
 
     return (
         <div className="text-light mx-5">
-            <h1 className="text-center">Calendario</h1>
+            <h1 className="text-center text-decoration-underline">Calendario</h1>
             <div className="d-flex justify-content-center">
                 <Calendar
                     localizer={localizer}

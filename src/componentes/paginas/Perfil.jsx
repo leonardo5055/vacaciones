@@ -9,7 +9,7 @@ function Perfil() {
 
     return (
         <div>
-            <h1 className='text-light text-center mt-3'>Perfil</h1>
+            <h1 className='text-light text-center mt-3 text-decoration-underline'>Perfil</h1>
             <div className='d-flex justify-content-center gap-5 m-5'>
                 <div className='caja-negra text-light text-center fs-4'>
                     <img src={avatarEmpleado(`./${empleado.avatar}`)} className="rounded-circle" width={300} alt="" />

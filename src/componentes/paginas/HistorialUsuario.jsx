@@ -33,7 +33,7 @@ function Historial() {
 
     return (
         <div>
-            <h2 className='text-light d-flex justify-content-center m-5'>Vacaciones tomadas</h2>
+            <h2 className='text-light d-flex justify-content-center m-5 text-decoration-underline'>Vacaciones tomadas</h2>
             {vacacionesEmpleado.map((vacacion, index) => {
                 // Determinar las clases según el estado de la vacación
                 let cajaClase = 'd-flex justify-content-around text-light align-items-center ';
