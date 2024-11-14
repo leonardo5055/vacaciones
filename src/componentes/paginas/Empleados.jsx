@@ -15,7 +15,7 @@ function Empleados() {
 
 
     useEffect(() => {
-        fetch("http://localhost:40588/api/empleados")
+        fetch("https://gestiondevacaciones-api-production.up.railway.app/api/empleados")
             .then(response => response.json())
             .then(data => {
                 setEmpleados(data);
@@ -86,7 +86,7 @@ function Empleados() {
         }
 
         // Enviar los cambios a la API
-        fetch(`http://localhost:40588/api/admin/empleados/${empleadoId}`, {
+        fetch(`https://gestiondevacaciones-api-production.up.railway.app/api/admin/empleados/${empleadoId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
